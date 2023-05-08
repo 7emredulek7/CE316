@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.ProjectController">
+<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="30.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.ProjectController">
    <children>
       <HBox VBox.vgrow="ALWAYS">
          <VBox.margin>
@@ -43,7 +43,6 @@
                         <Button mnemonicParsing="false" onAction="#createConfiguration" text="Create" />
                         <Label text="or" />
                         <ChoiceBox fx:id="configurations" prefWidth="150.0" />
-                        <Button mnemonicParsing="false" onAction="#editConfiguration" text="Edit" />
                      </children>
                   </HBox>
                   <Label text="Source Codes" GridPane.rowIndex="4" />

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox alignment="CENTER" minHeight="440.0" minWidth="470.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.MainController">
+<HBox alignment="CENTER" minHeight="440.0" minWidth="470.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.MainController">
    <children>
       <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" spacing="30.0" HBox.hgrow="ALWAYS">
          <children>
@@ -29,7 +29,6 @@
             <Label fx:id="compilerName" text="compiler/intrepreter name" />
             <Label fx:id="libraryNames" text="library names" />
             <ListView fx:id="projectResults" maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" />
-            <Button mnemonicParsing="false" onAction="#deleteProject" text="Delete" />
          </children></VBox>
    </children>
    <padding>
