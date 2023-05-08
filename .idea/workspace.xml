@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b5584-3af4-4589-a98f-5ba7dec3cb37" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/iae/src/main/java/com/example/iae/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iae/src/main/java/com/example/iae/ConfigurationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iae/src/main/java/com/example/iae/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iae/src/main/java/com/example/iae/ProjectController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iae/src/main/resources/com/example/iae/ConfigurationScreen.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iae/src/main/resources/com/example/iae/MainScreen.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iae/src/main/resources/com/example/iae/ProjectScreen.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iae/src/main/java/com/example/iae/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iae/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/iae/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iae/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/iae/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +58,24 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/iae/src/main/java/com/example/iae" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -78,6 +94,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
