@@ -82,9 +82,7 @@ public class ProjectController extends MainController {
         FileChooser chooser = new FileChooser();
         Node node = (Node) event.getSource();
 
-        // should not be filtered by txt it can be folder itself
-        chooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        chooser.getExtensionFilters().addAll();
 
         File file = chooser.showOpenDialog(node.getScene().getWindow());
         chooser.setTitle("Choose Source Codes");
