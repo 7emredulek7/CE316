@@ -93,7 +93,7 @@ public class ProjectController extends MainController {
     @FXML
     private void save() {
 
-        // create project object
+        // create project object and save it to database and projects Arraylist
 
         Stage stage = (Stage) name.getScene().getWindow();
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));

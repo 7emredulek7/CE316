@@ -19,7 +19,7 @@ public class MainController {
     @FXML
     private VBox projectScene;
     @FXML
-    private ListView projectList;
+    private ListView<Project> projectList;
     @FXML
     private Label projectName;
     @FXML
@@ -27,13 +27,18 @@ public class MainController {
     @FXML
     private Label libraryNames;
     @FXML
-    private ListView projectResults;
+    private ListView<Student> projectResults;
 
     protected static String configurationStatus = "";
 
     protected static ArrayList<Config> configurationsList = new ArrayList<>();
+    protected static ArrayList<Project> projects = new ArrayList<>();
+    private Project selectedProject;
     public void initialize() {
         configurationsList = readConfigurationsFromFile();
+
+        //projects = projects from database
+        projectList.getItems().addAll(projects);
     }
 
     @FXML
@@ -76,20 +81,22 @@ public class MainController {
 
     @FXML
     private void displayProject() {
-        projectScene.setVisible(!projectScene.isVisible());
-        // selectedProject = (Project) projectList.getSelectionModel().getSelectedItem();
-        // if selected project is not null
-
-        // information for the selected project
-        // projectName = ...
-        //projectScene.setVisible(true);
-
-        // if selected project is null
-        //projectScene.setVisible(false);
+        projectScene.setVisible(!projectScene.isVisible()); // I will delete this later
+        selectedProject = projectList.getSelectionModel().getSelectedItem();
+        if(selectedProject != null){
+            projectName.setText(selectedProject.getName());
+            compilerName.setText(selectedProject.getConfiguration().getSource());
+            libraryNames.setText(selectedProject.getConfiguration().getLibraries());
+            projectResults.getItems().addAll(selectedProject.getStudents());
+            projectScene.setVisible(true);
+        }
+        //else
+            //projectScene.setVisible(false);
     }
     @FXML
     private void deleteProject(){
-        //projects.remove(selectedProject)
+        projects.remove(selectedProject);
+        // remove it from the database as well
         projectScene.setVisible(false);
     }
 

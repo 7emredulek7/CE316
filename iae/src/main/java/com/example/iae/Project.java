@@ -38,4 +38,9 @@ public class Project {
     public Config getConfiguration() {
         return configuration;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

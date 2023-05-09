@@ -15,4 +15,9 @@ public class Student {
     public boolean isPassed() {
         return isPassed;
     }
+
+    @Override
+    public String toString() {
+        return id + ": " + isPassed;
+    }
 }
