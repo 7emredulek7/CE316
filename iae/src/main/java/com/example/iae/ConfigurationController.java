@@ -40,34 +40,18 @@ public class ConfigurationController extends MainController{
         source.getSelectionModel().selectFirst();
         configurationsList = readConfigurationsFromFile();
 
+        for (Config c: configurationsList)
+            configurations.getItems().add(c);
+
         stackPane.getChildren().get(0).setVisible(false);
         stackPane.getChildren().get(1).setVisible(false);
 
         if (configurationStatus.equals("create new configuration"))
             stackPane.getChildren().get(0).setVisible(true);
-        else if (configurationStatus.equals("edit selected configuration")) {
-            stackPane.getChildren().get(0).setVisible(true);
-            /*
-            * name = configurastion.name
-            * ...
-            * */
-        }
+        else if (configurationStatus.equals("edit selected configuration"))
+            editScreen();
         else if(configurationStatus.equals("edit configurations"))
             stackPane.getChildren().get(1).setVisible(true);
-        /**
-         * if create new configuration
-         *  stackPane.getChildren().get(0).setVisible(true)
-         * else if edit new configuratiom
-         *  stackPane.get(0).setVisible(true)
-         *  name = confiration.name
-         *  .
-         *  .
-         *  .
-         *
-         *  else
-         *  stackPane.getChildren().get(1).setVisible(true)
-         *
-         */
     }
 
     @FXML
@@ -111,15 +95,22 @@ private void save() {
 
 
     @FXML
-    private void deleteProject(){
-        //configurations.remove(selectedConfiguration)
-        // delete it from project as well
+    private void deleteConfiguration(){
+        Config temp = configurations.getValue();
+
+        configurations.getItems().remove(temp);
+        // delete it from project and the file
     }
     @FXML
     private void editScreen(){
         stackPane.getChildren().get(1).setVisible(false);
-        //name = selectedCOnfiguraton.name
-        //...
+
+        Config temp = configurations.getValue();
+        name.setText(temp.getName());
+        source.setValue(temp.getSource());
+        libraries.setText(temp.getLibraries());
+        path.setText(temp.getCompilerPath());
+
         stackPane.getChildren().get(0).setVisible(true);
     }
 
