@@ -15,7 +15,7 @@
             <Button mnemonicParsing="false" onAction="#createConfiguration" text="Create New Configuration" />
             <Button mnemonicParsing="false" onAction="#editConfigurations" text="Edit Configurations" />
             <Button mnemonicParsing="false" onAction="#createProject" text="Create New Project" />
-            <ListView fx:id="projectList" maxWidth="-Infinity" onContextMenuRequested="#displayProject" onMouseClicked="#displayProject" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="projectList" maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
          <HBox.margin>
             <Insets />
