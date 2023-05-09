@@ -61,7 +61,7 @@ private void save() {
     Config tempConfig;
     boolean configExists = false;
     for (int i = 0; i < configurationsList.size(); i++) {
-        if (configurationsList.get(i).getName().equals(name.getText())) {
+        if (configurationsList.get(i).getName().equals(name.getText()) || toEdit != null && configurationsList.get(i).getName().equals(toEdit.getName())) {
             System.out.println("Configuration already exists \n");
             tempConfig = configurationsList.get(i);
             tempConfig.setName(name.getText());
@@ -94,54 +94,64 @@ private void save() {
 }
 
 
-
 @FXML
 private void deleteConfiguration(){
-    // TODO: THERE EXIST A BUG WHILE USING THE SAVECONFIGURTIONSTOFILE METHOD
+    
     if (configurationsList.isEmpty()) {
-        return; // Exit the method early if the list is empty
+        System.out.println("Nothing to delete. Configurations list is empty.");
+        return; 
     }
+
+    Config configToRemove = null;
+    String configNameToRemove = configurations.getValue();
 
     for(Config c : configurationsList) {
-        if(c.getName().equals(configurations.getValue())) {
-            Config temp = c;
-            String tempName = temp.getName();
-            configurations.getItems().remove(tempName);
-            configurationsList.remove(temp);
-            System.out.println("Configuration deleted:" + "\n + name: " +
-                    tempName + "\n + path: " + temp.getCompilerPath() + "\n + libraries: "
-                    + temp.getLibraries() + "\n + source: " + temp.getSource() + "\n");
-            File file = new File("configuration.cfg");
-            file.delete();
+        if(c.getName().equals(configNameToRemove)) {
+            configToRemove = c;
+            break;
         }
     }
-    saveConfigurationsToFile(configurationsList);
+
+    if (configToRemove != null) {
+        configurations.getItems().remove(configNameToRemove);
+        configurationsList.remove(configToRemove);
+        System.out.println("Configuration deleted:" + "\n + name: " +
+                configNameToRemove + "\n + path: " + configToRemove.getCompilerPath() + "\n + libraries: "
+                + configToRemove.getLibraries() + "\n + source: " + configToRemove.getSource() + "\n");
+        saveConfigurationsToFile(configurationsList);
+    } else {
+        System.out.println("Configuration not found: " + configNameToRemove);
+    }
+    configurations.getSelectionModel().selectFirst();
 }
 
-    @FXML
-    private void editScreen(){
-        stackPane.getChildren().get(1).setVisible(false);
+Config toEdit;
+@FXML
+private void editScreen() {
+    stackPane.getChildren().get(1).setVisible(false);
+    configurations.getSelectionModel().selectFirst();
 
-        for(Config c : configurationsList)
-            if(c.getName().equals(configurations.getValue())){
-                Config temp = c;
-                name.setText(temp.getName());
-                source.setValue(temp.getSource());
-                libraries.setText(temp.getLibraries());
-                path.setText(temp.getCompilerPath());
-            }
-       
-        stackPane.getChildren().get(0).setVisible(true);
+    // Get the selected configuration from the ComboBox
+    String selectedConfigName = configurations.getValue();
+
+    for (Config c : configurationsList) {
+        if (c.getName().equals(selectedConfigName)) {
+            toEdit = c;
+            // Set the values of the TextFields and ChoiceBoxes to the values from the selected Config object
+            name.setText(c.getName());
+            source.setValue(c.getSource());
+            libraries.setText(c.getLibraries());
+            path.setText(c.getCompilerPath());
+
+        }
     }
+    stackPane.getChildren().get(0).setVisible(true);
+}
+
 
     
     
     private void saveConfigurationsToFile(ArrayList<Config> configurationsList) {
-        // TODO: FIX THE UNENDING NIGHTMARE OF EXCEPTIONS
-        if (configurationsList.isEmpty()) {
-            System.out.println("Nothing to save. Configurations list is empty.");
-            return; 
-        }
     
         try {
             File file = new File("configuration.cfg");
@@ -155,7 +165,7 @@ private void deleteConfiguration(){
             fileOut.close();
             System.out.println("Configurations saved to configuration.cfg");
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getCause().printStackTrace();
         }
     }
     
