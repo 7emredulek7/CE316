@@ -100,7 +100,8 @@ public class ProjectController extends MainController {
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
         Project project = new Project(name.getText(), inputFile.getPath(), outputFile.getPath(),
                 configurations.getValue());
-        Driver driver = new Driver(project, sourceCodes.getPath());
+        String fileName = sourceCodes.getName().replaceFirst("[.][^.]+$", "");
+        Driver driver = new Driver(project, sourceCodes.getParentFile().getPath(), fileName);
         driver.evaluateStudent();
     }
 }

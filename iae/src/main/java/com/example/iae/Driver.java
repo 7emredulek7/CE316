@@ -7,14 +7,17 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Driver {
-    public Driver(Project project, String path) {
+    public Driver(Project project, String path, String name) {
         this.project = project;
         this.path = path;
+        this.name = name;
+
     }
 
     Project project;
     String path;
-    String language = project.getConfiguration().getSource();
+    String language = "C";
+    String name;
     ArrayList<String> libraries = new ArrayList<String>();
 
     private String compileProject() {
@@ -22,21 +25,20 @@ public class Driver {
 
         switch (language) {
             case "C":
-                command = "cmd.exe /c gcc -o " + project.getName() + ".exe " + project.getName() + ".c & " + project
-                        .getName();
+                command = "cmd.exe /c gcc -o " + name + ".exe " + name + ".c & " + name;
                 break;
             case "C++":
-                command = "cmd.exe /c g++ -o " + project.getName() + ".exe " + project.getName() + ".cpp & "
-                        + project.getName();
+                command = "cmd.exe /c g++ -o " + name + ".exe " + name + ".cpp & "
+                        + name;
                 break;
             case "Python":
-                command = "cmd.exe /c py " + project.getName() + ".py";
+                command = "cmd.exe /c py " + name + ".py";
                 break;
             case "Java":
-                command = "cmd.exe /c javac " + project.getName() + ".java & java " + project.getName();
+                command = "cmd.exe /c javac " + name + ".java & java " + name;
                 break;
             case "Dart":
-                command = "cmd.exe /c dart run " + project.getName() + ".dart";
+                command = "cmd.exe /c dart run " + name + ".dart";
                 break;
             default:
                 break;
