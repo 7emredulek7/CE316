@@ -27,7 +27,7 @@ public class ConfigurationController extends MainController{
     @FXML
     private TextField path;
     @FXML
-    private ChoiceBox<Config> configurations;
+    private ChoiceBox<String> configurations;
 
     private ArrayList<Config> configurationsList = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class ConfigurationController extends MainController{
         configurationsList = readConfigurationsFromFile();
 
         for (Config c: configurationsList)
-            configurations.getItems().add(c);
+            configurations.getItems().add(c.getName());
 
         stackPane.getChildren().get(0).setVisible(false);
         stackPane.getChildren().get(1).setVisible(false);
@@ -94,27 +94,54 @@ private void save() {
 
 
 
-    @FXML
-    private void deleteConfiguration(){
-        Config temp = configurations.getValue();
-
-        configurations.getItems().remove(temp);
-        // delete it from project and the file
+@FXML
+private void deleteConfiguration(){
+    // TODO: THERE EXIST A BUG WHILE USING THE SAVECONFIGURTIONSTOFILE METHOD
+    if (configurationsList.isEmpty()) {
+        return; // Exit the method early if the list is empty
     }
+
+    for(Config c : configurationsList) {
+        if(c.getName().equals(configurations.getValue())) {
+            Config temp = c;
+            String tempName = temp.getName();
+            configurations.getItems().remove(tempName);
+            configurationsList.remove(temp);
+            System.out.println("Configuration deleted:" + "\n + name: " +
+                    tempName + "\n + path: " + temp.getCompilerPath() + "\n + libraries: "
+                    + temp.getLibraries() + "\n + source: " + temp.getSource() + "\n");
+            File file = new File("configuration.cfg");
+            file.delete();
+        }
+    }
+    saveConfigurationsToFile(configurationsList);
+}
+
     @FXML
     private void editScreen(){
         stackPane.getChildren().get(1).setVisible(false);
 
-        Config temp = configurations.getValue();
-        name.setText(temp.getName());
-        source.setValue(temp.getSource());
-        libraries.setText(temp.getLibraries());
-        path.setText(temp.getCompilerPath());
-
+        for(Config c : configurationsList)
+            if(c.getName().equals(configurations.getValue())){
+                Config temp = c;
+                name.setText(temp.getName());
+                source.setValue(temp.getSource());
+                libraries.setText(temp.getLibraries());
+                path.setText(temp.getCompilerPath());
+            }
+       
         stackPane.getChildren().get(0).setVisible(true);
     }
 
+    
+    
     private void saveConfigurationsToFile(ArrayList<Config> configurationsList) {
+        // TODO: FIX THE UNENDING NIGHTMARE OF EXCEPTIONS
+        if (configurationsList.isEmpty()) {
+            System.out.println("Nothing to save. Configurations list is empty.");
+            return; 
+        }
+    
         try {
             File file = new File("configuration.cfg");
             if (!file.exists()) {
