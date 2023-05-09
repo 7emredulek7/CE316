@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.ConfigurationController">
+<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.ConfigurationController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="400.0" spacing="30.0">
          <children>
@@ -29,13 +29,13 @@
               </rowConstraints>
                <children>
                   <Label text="Configuration's name" />
-                  <Label text="Compiler path" GridPane.rowIndex="3" />
-                  <Label text="Libraries used" GridPane.rowIndex="2" />
-                  <TextField fx:id="path" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="name" prefHeight="26.0" prefWidth="0.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="libraries" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Language:" GridPane.rowIndex="1" />
-                  <ChoiceBox fx:id="source" prefHeight="25.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ChoiceBox fx:id="source" focusTraversable="false" prefHeight="25.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Libraries used" GridPane.rowIndex="2" />
+                  <TextField fx:id="libraries" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Compiler path" GridPane.rowIndex="3" />
+                  <TextField fx:id="path" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
                <VBox.margin>
                   <Insets right="10.0" />
