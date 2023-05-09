@@ -1,15 +1,11 @@
 package com.example.iae;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -24,7 +20,7 @@ public class ProjectController extends MainController {
     @FXML
     private File outputFile;
     @FXML
-    private ChoiceBox<Config> configurations;
+    private ChoiceBox configurations;
     @FXML
     private File sourceCodes;
 
@@ -60,24 +56,6 @@ public class ProjectController extends MainController {
 
         if (file != null)
             outputFile = file;
-    }
-
-    @FXML
-    private void createConfiguration() throws IOException {
-        configurationStatus = "create new configuration";
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ConfigurationScreen.fxml"));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        stage.setTitle("New Configuration");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setOnCloseRequest(windowEvent -> {
-            configurations.getItems().clear();
-            configurations.getItems().addAll(configurationsList);
-        });
-        stage.showAndWait();
-
     }
 
     @FXML
