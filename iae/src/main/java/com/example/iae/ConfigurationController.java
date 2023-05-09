@@ -90,6 +90,7 @@ private void save() {
     // if configuration already exists, then edit that configuration
     Stage stage = (Stage) name.getScene().getWindow();
     stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+    
 }
 
 
