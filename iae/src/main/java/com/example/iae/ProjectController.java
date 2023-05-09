@@ -1,4 +1,5 @@
 package com.example.iae;
+
 import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -58,6 +59,7 @@ public class ProjectController extends MainController {
         if (file != null)
             outputFile = file;
     }
+
     @FXML
     private void createConfiguration() throws IOException {
         configurationStatus = "create new configuration";
@@ -68,12 +70,13 @@ public class ProjectController extends MainController {
         stage.setTitle("New Configuration");
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setOnCloseRequest(windowEvent-> {
+        stage.setOnCloseRequest(windowEvent -> {
             configurations.getItems().clear();
             configurations.getItems().addAll(configurationsList);
         });
         stage.showAndWait();
     }
+
     @FXML
     private void sourceCodeChooser(ActionEvent event) {
         FileChooser chooser = new FileChooser();
@@ -97,5 +100,9 @@ public class ProjectController extends MainController {
 
         Stage stage = (Stage) name.getScene().getWindow();
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+        Project project = new Project(name.getText(), inputFile.getPath(), outputFile.getPath(),
+                configurations.getValue());
+        Driver driver = new Driver(project, sourceCodes.getPath());
+        driver.evaluateStudent();
     }
 }
