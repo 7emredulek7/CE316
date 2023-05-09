@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,33 +24,12 @@ public class ProjectController extends MainController {
     @FXML
     private File outputFile;
     @FXML
-    private ChoiceBox configurations;
+    private ChoiceBox<Config> configurations;
     @FXML
     private File sourceCodes;
 
     public void initialize() {
-        // configurations.getItems.addAll()
-    }
-
-    @FXML
-    private void editConfiguration() throws IOException {
-        configurationStatus = "edit selected configuration";
-        // if configurations is not null
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ConfigurationScreen.fxml"));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        stage.setTitle("Edit Configuration");
-        stage.setScene(scene);
-        stage.setResizable(false);
-
-        /*
-         * name = configurationName
-         * path= compilerPath
-         * libraries = configurationLibraries
-         */
-
-        stage.showAndWait();
+        configurations.getItems().addAll(configurationsList);
     }
 
     @FXML
@@ -82,6 +60,24 @@ public class ProjectController extends MainController {
 
         if (file != null)
             outputFile = file;
+    }
+
+    @FXML
+    private void createConfiguration() throws IOException {
+        configurationStatus = "create new configuration";
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ConfigurationScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        stage.setTitle("New Configuration");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setOnCloseRequest(windowEvent -> {
+            configurations.getItems().clear();
+            configurations.getItems().addAll(configurationsList);
+        });
+        stage.showAndWait();
+
     }
 
     @FXML

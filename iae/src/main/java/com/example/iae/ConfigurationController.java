@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
@@ -27,9 +26,7 @@ public class ConfigurationController extends MainController {
     @FXML
     private TextField path;
     @FXML
-    private ChoiceBox<String> configurations;
-
-    private ArrayList<Config> configurationsList = new ArrayList<>();
+    private ChoiceBox<Config> configurations;
 
     private String[] supportedLanguages = { "Java", "Python", "C", "C++", "Dart" };
 
@@ -40,10 +37,8 @@ public class ConfigurationController extends MainController {
             source.getItems().add(s);
         }
         source.getSelectionModel().selectFirst();
-        configurationsList = readConfigurationsFromFile();
-
         for (Config c : configurationsList)
-            configurations.getItems().add(c.getName());
+            configurations.getItems().add(c);
 
         stackPane.getChildren().get(0).setVisible(false);
         stackPane.getChildren().get(1).setVisible(false);
@@ -102,25 +97,17 @@ public class ConfigurationController extends MainController {
             return;
         }
 
-        Config configToRemove = null;
-        String configNameToRemove = configurations.getValue();
-
-        for (Config c : configurationsList) {
-            if (c.getName().equals(configNameToRemove)) {
-                configToRemove = c;
-                break;
-            }
-        }
+        Config configToRemove = configurations.getValue();
 
         if (configToRemove != null) {
-            configurations.getItems().remove(configNameToRemove);
+            configurations.getItems().remove(configToRemove);
             configurationsList.remove(configToRemove);
             System.out.println("Configuration deleted:" + "\n + name: " +
-                    configNameToRemove + "\n + path: " + configToRemove.getCompilerPath() + "\n + libraries: "
+                    configToRemove.getName() + "\n + path: " + configToRemove.getCompilerPath() + "\n + libraries: "
                     + configToRemove.getLibraries() + "\n + source: " + configToRemove.getSource() + "\n");
             saveConfigurationsToFile(configurationsList);
         } else {
-            System.out.println("Configuration not found: " + configNameToRemove);
+            System.out.println("Configuration not found: " + configToRemove.getName());
         }
         configurations.getSelectionModel().selectFirst();
     }
@@ -128,20 +115,13 @@ public class ConfigurationController extends MainController {
     @FXML
     private void editScreen() {
         stackPane.getChildren().get(1).setVisible(false);
-        configurations.getSelectionModel().selectFirst();
 
-        String selectedConfigName = configurations.getValue();
+        Config temp = configurations.getValue();
+        name.setText(temp.getName());
+        source.setValue(temp.getSource());
+        libraries.setText(temp.getLibraries());
+        path.setText(temp.getCompilerPath());
 
-        for (Config c : configurationsList) {
-            if (c.getName().equals(selectedConfigName)) {
-                toEdit = c;
-                name.setText(c.getName());
-                source.setValue(c.getSource());
-                libraries.setText(c.getLibraries());
-                path.setText(c.getCompilerPath());
-
-            }
-        }
         stackPane.getChildren().get(0).setVisible(true);
     }
 
@@ -161,25 +141,6 @@ public class ConfigurationController extends MainController {
         } catch (IOException e) {
             e.getCause().printStackTrace();
         }
-    }
-
-    private ArrayList<Config> readConfigurationsFromFile() {
-        ArrayList<Config> configurationsList = new ArrayList<>();
-        try {
-            File file = new File("configuration.cfg");
-            if (file.exists()) {
-                FileInputStream fileIn = new FileInputStream(file);
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                configurationsList = (ArrayList<Config>) in.readObject();
-                in.close();
-                fileIn.close();
-            } else {
-                System.out.println("Configuration file does not exist.");
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return configurationsList;
     }
 
 }

@@ -1,6 +1,10 @@
 package com.example.iae;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,8 +30,10 @@ public class MainController {
     private ListView projectResults;
 
     protected static String configurationStatus = "";
-    public void initialize() {
 
+    protected static ArrayList<Config> configurationsList = new ArrayList<>();
+    public void initialize() {
+        configurationsList = readConfigurationsFromFile();
     }
 
     @FXML
@@ -44,7 +50,7 @@ public class MainController {
     }
 
     @FXML
-    protected void createConfiguration() throws IOException {
+    private void createConfiguration() throws IOException {
         configurationStatus = "create new configuration";
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ConfigurationScreen.fxml"));
@@ -85,5 +91,24 @@ public class MainController {
     private void deleteProject(){
         //projects.remove(selectedProject)
         projectScene.setVisible(false);
+    }
+
+    protected ArrayList<Config> readConfigurationsFromFile() {
+        ArrayList<Config> configurationsList = new ArrayList<>();
+        try {
+            File file = new File("configuration.cfg");
+            if (file.exists()) {
+                FileInputStream fileIn = new FileInputStream(file);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                configurationsList = (ArrayList<Config>) in.readObject();
+                in.close();
+                fileIn.close();
+            } else {
+                System.out.println("Configuration file does not exist.");
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return configurationsList;
     }
 }
