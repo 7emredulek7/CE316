@@ -6,6 +6,8 @@ public class DBConnection {
     private final String fileName;
     private Connection conn;
 
+    private PreparedStatement insertProject, insertStudent;
+
     private DBConnection() {
         this.fileName = "info.db";
         File file = new File(fileName);
@@ -35,6 +37,13 @@ public class DBConnection {
             throw new RuntimeException(e);
         }
 
+        try {
+            insertProject = conn.prepareStatement("INSERT INTO PROJECT (NAME, INPUT_FILE, OUTPUT_FILE, CONFIG_FILE) VALUES (? ? ? ?)");
+            insertStudent = conn.prepareStatement("INSERT INTO STUDENT (PROJECT_NAME, ID, IS_PASSED) VALUES (? ? ?)");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public static DBConnection getInstance() {
@@ -44,6 +53,30 @@ public class DBConnection {
         }
 
         return instance;
+    }
+
+    public void addProject(Project project) {
+        try {
+            insertProject.setString(1, project.getName());
+            insertProject.setString(2, project.getInputFilePath());
+            insertProject.setString(3, project.getOutputFilePath());
+            insertProject.setString(4, project.getConfiguration().getName());
+
+            for(Student student : project.getStudents()) {
+                int isPassed = student.isPassed() ? 1 : 0;
+
+                try {
+                    insertStudent.setString(1, student.getId());
+                    insertStudent.setInt(2, isPassed);
+                    insertStudent.setString(3, project.getName());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
