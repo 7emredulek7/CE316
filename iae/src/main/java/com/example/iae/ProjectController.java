@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -79,16 +80,14 @@ public class ProjectController extends MainController {
 
     @FXML
     private void sourceCodeChooser(ActionEvent event) {
-        FileChooser chooser = new FileChooser();
+        DirectoryChooser chooser = new DirectoryChooser();
         Node node = (Node) event.getSource();
 
-        chooser.getExtensionFilters().addAll();
+        File directory = chooser.showDialog(node.getScene().getWindow());
+        chooser.setTitle("Choose Source Code Directory");
 
-        File file = chooser.showOpenDialog(node.getScene().getWindow());
-        chooser.setTitle("Choose Source Codes");
-
-        if (file != null)
-            sourceCodes = file;
+        if (directory != null)
+            sourceCodes = directory;
     }
 
     @FXML

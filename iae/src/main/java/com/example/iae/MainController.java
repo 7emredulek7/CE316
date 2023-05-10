@@ -46,15 +46,27 @@ public class MainController {
         configurationsList = readConfigurationsFromFile();
 
         /* test data
-        Project p1 = new Project("1", "","",new Config("","","",""));
-        Project p2 = new Project("2", "","",new Config("","","",""));
-        Project p3 = new Project("3", "","",new Config("","","",""));
-        Project p4 = new Project("4", "","",new Config("","","",""));
+        Config c1 = new Config("a","x","x","x");
+        Config c2 = new Config("b","y","y","y");
+        Config c3 = new Config("c","z","z","z");
+        Config c4 = new Config("d","t","t","t");
 
-        projects.add(p1);   projects.add(p2);
-        projects.add(p3);   projects.add(p4);
+        Project p1 = new Project("1", "ab","ab", c1);
+        Project p2 = new Project("2", "c","c", c2);
+        Project p3 = new Project("3", "d","d", c3);
+        Project p4 = new Project("4", "e","e", c4);
+        configurationsList.add(c1);
+        configurationsList.add(c2);
+        configurationsList.add(c3);
+        configurationsList.add(c4);
+
+        DBConnection.getInstance().addProject(p1);
+        DBConnection.getInstance().addProject(p2);
+        DBConnection.getInstance().addProject(p3);
+        DBConnection.getInstance().addProject(p4);
         */
-        //projects = projects from database
+
+        projects = DBConnection.getInstance().getAllProjects();
         for (Project p: projects) {
             HBox hbox = new HBox();
             HBox trash = new HBox();

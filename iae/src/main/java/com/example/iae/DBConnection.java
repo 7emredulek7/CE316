@@ -15,7 +15,6 @@ public class DBConnection {
         this.fileName = "info.db";
         File file = new File(fileName);
         boolean firstRun = !file.exists();
-        conn = null;
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -34,17 +33,17 @@ public class DBConnection {
                         "ID TEXT NOT NULL," +
                         "IS_PASSED INT NOT NULL," +
                         "PRIMARY KEY(PROJECT_NAME, ID) )");
-
-                /* Insertion into database */
-                insertProject = conn.prepareStatement("INSERT INTO PROJECT (NAME, INPUT_FILE, OUTPUT_FILE, CONFIG_FILE) VALUES (?, ?, ?, ?)");
-                insertStudent = conn.prepareStatement("INSERT INTO STUDENT (PROJECT_NAME, ID, IS_PASSED) VALUES (?, ?, ?)");
-
-                /* Selection from database */
-                getProject = conn.prepareStatement("SELECT * FROM PROJECT WHERE NAME = ?");
-                getStudents = conn.prepareStatement("SELECT * FROM STUDENT WHERE PROJECT_NAME = ?");
-                getAllProjectNames = conn.prepareStatement("SELECT NAME FROM PROJECT");
-
             }
+
+            /* Insertion into database */
+            insertProject = conn.prepareStatement("INSERT INTO PROJECT (NAME, INPUT_FILE, OUTPUT_FILE, CONFIG_FILE) VALUES (?, ?, ?, ?)");
+            insertStudent = conn.prepareStatement("INSERT INTO STUDENT (PROJECT_NAME, ID, IS_PASSED) VALUES (?, ?, ?)");
+
+            /* Selection from database */
+            getProject = conn.prepareStatement("SELECT * FROM PROJECT WHERE NAME = ?");
+            getStudents = conn.prepareStatement("SELECT * FROM STUDENT WHERE PROJECT_NAME = ?");
+            getAllProjectNames = conn.prepareStatement("SELECT NAME FROM PROJECT");
+
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -142,10 +141,6 @@ public class DBConnection {
 
         return projects;
     }
-
-
-
-
 
 }
 
