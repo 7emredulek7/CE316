@@ -74,6 +74,7 @@ public class ProjectController extends MainController {
         stage.setOnCloseRequest(windowEvent -> {
             configurations.getItems().clear();
             configurations.getItems().addAll(configurationsList);
+            configurations.setValue(configurationsList.get(configurationsList.size()-1));
         });
         stage.showAndWait();
     }
