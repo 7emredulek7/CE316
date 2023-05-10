@@ -36,8 +36,8 @@ public class DBConnection {
                         "PRIMARY KEY(PROJECT_NAME, ID) )");
 
                 /* Insertion into database */
-                insertProject = conn.prepareStatement("INSERT INTO PROJECT (NAME, INPUT_FILE, OUTPUT_FILE, CONFIG_FILE) VALUES (? ? ? ?)");
-                insertStudent = conn.prepareStatement("INSERT INTO STUDENT (PROJECT_NAME, ID, IS_PASSED) VALUES (? ? ?)");
+                insertProject = conn.prepareStatement("INSERT INTO PROJECT (NAME, INPUT_FILE, OUTPUT_FILE, CONFIG_FILE) VALUES (?, ?, ?, ?)");
+                insertStudent = conn.prepareStatement("INSERT INTO STUDENT (PROJECT_NAME, ID, IS_PASSED) VALUES (?, ?, ?)");
 
                 /* Selection from database */
                 getProject = conn.prepareStatement("SELECT * FROM PROJECT WHERE NAME = ?");
@@ -66,6 +66,8 @@ public class DBConnection {
             insertProject.setString(2, project.getInputFilePath());
             insertProject.setString(3, project.getOutputFilePath());
             insertProject.setString(4, project.getConfiguration().getName());
+            insertProject.execute();
+
 
             for(Student student : project.getStudents()) {
                 int isPassed = student.isPassed() ? 1 : 0;
@@ -78,6 +80,8 @@ public class DBConnection {
                     throw new RuntimeException(e);
                 }
             }
+
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
