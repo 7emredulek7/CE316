@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +14,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -89,8 +88,7 @@ public class MainController {
                 displayProject(p);
             });
             deleteButton.setOnAction(event -> {
-                projectList.getItems().remove(hbox);
-                deleteProject(p);
+                deleteProject(p,hbox);
             });
             projectList.getItems().add(hbox);
         }
@@ -146,10 +144,14 @@ public class MainController {
         //else
             //projectScene.setVisible(false);
     }
-    private void deleteProject(Project selectedProject){
-        projects.remove(selectedProject);
-        // remove it from the database as well
-        projectScene.setVisible(false);
+    private void deleteProject(Project selectedProject, HBox hBox){
+        if (alertYesNoWindow("Are you sure?","Are you sure you want delete " + selectedProject.getName())) {
+            projects.remove(selectedProject);
+            // remove it from the database as well
+            projectList.getItems().remove(hBox);
+            projectScene.setVisible(false);
+
+        }
     }
 
     protected ArrayList<Config> readConfigurationsFromFile() {
@@ -169,5 +171,24 @@ public class MainController {
             e.printStackTrace();
         }
         return configurationsList;
+    }
+
+    public void alertErrorWindow(String title, String contentText) {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setResizable(false);
+        a.setTitle(title);
+        a.setContentText(contentText);
+        a.showAndWait();
+    }
+    public boolean alertYesNoWindow(String title, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(contentText);
+        AtomicBoolean b = new AtomicBoolean(false);
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+        alert.getButtonTypes().setAll(yesButton, noButton);
+        alert.showAndWait().ifPresent(choice -> b.set(choice != noButton));
+        return b.get();
     }
 }

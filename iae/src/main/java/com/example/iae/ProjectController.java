@@ -92,18 +92,29 @@ public class ProjectController extends MainController {
 
     @FXML
     private void save() {
+        if (name.getText().isBlank())
+            alertErrorWindow("Error","You should enter a name for your project");
+        else if(inputFile == null)
+            alertErrorWindow("Error","You should select a input file for your project");
+        else if(outputFile == null)
+            alertErrorWindow("Error","You should select a output file for your project");
+        else if(configurations.getValue() == null)
+            alertErrorWindow("Error","You should select a configuration for your project. If you haven't created any, you can use the create button.");
+        else if(sourceCodes == null)
+            alertErrorWindow("Error","You should select source codes for your project");
+        else {
+            Project project = new Project(name.getText(), inputFile.getPath(), outputFile.getPath(),
+                    configurations.getValue());
 
-        Project project = new Project(name.getText(), inputFile.getPath(), outputFile.getPath(),
-                configurations.getValue());
+            DBConnection.getInstance().addProject(project);
+            projects.add(project);
 
-        DBConnection.getInstance().addProject(project);
-        projects.add(project);
+            String fileName = sourceCodes.getName().replaceFirst("[.][^.]+$", "");
+            Driver driver = new Driver(project, sourceCodes.getParentFile().getPath());
+            driver.evaluateStudent();
 
-        Stage stage = (Stage) name.getScene().getWindow();
-        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
-
-        String fileName = sourceCodes.getName().replaceFirst("[.][^.]+$", "");
-        Driver driver = new Driver(project, sourceCodes.getParentFile().getPath());
-        driver.evaluateStudent();
+            Stage stage = (Stage) name.getScene().getWindow();
+            stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+        }
     }
 }
