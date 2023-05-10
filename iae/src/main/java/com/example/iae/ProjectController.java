@@ -94,12 +94,15 @@ public class ProjectController extends MainController {
     @FXML
     private void save() {
 
-        // create project object and save it to database and projects Arraylist
+        Project project = new Project(name.getText(), inputFile.getPath(), outputFile.getPath(),
+                configurations.getValue());
+
+        DBConnection.getInstance().addProject(project);
+        projects.add(project);
 
         Stage stage = (Stage) name.getScene().getWindow();
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
-        Project project = new Project(name.getText(), inputFile.getPath(), outputFile.getPath(),
-                configurations.getValue());
+
         String fileName = sourceCodes.getName().replaceFirst("[.][^.]+$", "");
         Driver driver = new Driver(project, sourceCodes.getParentFile().getPath());
         driver.evaluateStudent();

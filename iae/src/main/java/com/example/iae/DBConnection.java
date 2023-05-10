@@ -1,12 +1,15 @@
 package com.example.iae;
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+
 public class DBConnection {
     private static DBConnection instance = null;
     private final String fileName;
     private Connection conn;
 
     private PreparedStatement insertProject, insertStudent;
+    private PreparedStatement getProject, getStudents, getAllProjectNames;
 
     private DBConnection() {
         this.fileName = "info.db";
@@ -32,15 +35,17 @@ public class DBConnection {
                         "IS_PASSED INT NOT NULL," +
                         "PRIMARY KEY(PROJECT_NAME, ID) )");
 
+                /* Insertion into database */
+                insertProject = conn.prepareStatement("INSERT INTO PROJECT (NAME, INPUT_FILE, OUTPUT_FILE, CONFIG_FILE) VALUES (? ? ? ?)");
+                insertStudent = conn.prepareStatement("INSERT INTO STUDENT (PROJECT_NAME, ID, IS_PASSED) VALUES (? ? ?)");
+
+                /* Selection from database */
+                getProject = conn.prepareStatement("SELECT * FROM PROJECT WHERE NAME = ?");
+                getStudents = conn.prepareStatement("SELECT * FROM STUDENT WHERE PROJECT_NAME = ?");
+                getAllProjectNames = conn.prepareStatement("SELECT NAME FROM PROJECT");
+
             }
         } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            insertProject = conn.prepareStatement("INSERT INTO PROJECT (NAME, INPUT_FILE, OUTPUT_FILE, CONFIG_FILE) VALUES (? ? ? ?)");
-            insertStudent = conn.prepareStatement("INSERT INTO STUDENT (PROJECT_NAME, ID, IS_PASSED) VALUES (? ? ?)");
-        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
@@ -55,7 +60,7 @@ public class DBConnection {
         return instance;
     }
 
-    public void addProject(Project project) {
+    public void addProject(Project project) { // Add project object to database with student and configuration info
         try {
             insertProject.setString(1, project.getName());
             insertProject.setString(2, project.getInputFilePath());
@@ -78,6 +83,65 @@ public class DBConnection {
             throw new RuntimeException(e);
         }
     }
+
+    public Project getProject(String projectName) { //Given the projectName, returns the project objects with students result and configuration info.
+        Project p;
+        try {
+            getProject.setString(1, projectName);
+            getProject.execute();
+            ResultSet rs = getProject.executeQuery();
+            rs.next();
+
+            String name =  rs.getString(1);
+            String inputFile = rs.getString(2);
+            String outputFile = rs.getString(3);
+            String configFileName = rs.getString(4);
+            Config configFile = null;
+
+            for(Config c : MainController.configurationsList) {
+                if(c.getName().equals(configFileName))
+                    configFile = c;
+            }
+
+            ArrayList<Student> students = new ArrayList<>();
+            getStudents.setString(1, projectName);
+            getStudents.execute();
+            ResultSet studentRs = getStudents.executeQuery();
+
+            while(studentRs.next()) {
+                String studentID = rs.getString(2);
+                boolean isPassed = rs.getInt(3) == 1;
+                students.add(new Student(studentID, isPassed));
+            }
+
+            p = new Project(name, inputFile, outputFile, students, configFile);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return p;
+    }
+
+    public ArrayList<Project> getAllProjects() { // Returns all the project objects in database.
+        ArrayList<Project> projects = new ArrayList<>();
+        try {
+            getAllProjectNames.execute();
+            ResultSet rs = getAllProjectNames.executeQuery();
+
+            while(rs.next()) {
+                String projectName = rs.getString(1);
+                projects.add(getProject(projectName));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return projects;
+    }
+
+
+
+
 
 }
 

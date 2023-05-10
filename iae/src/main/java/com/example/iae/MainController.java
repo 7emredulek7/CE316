@@ -39,7 +39,7 @@ public class MainController {
 
     protected static String configurationStatus = "";
 
-    protected static ArrayList<Config> configurationsList = new ArrayList<>();
+    public static ArrayList<Config> configurationsList = new ArrayList<>();
     protected static ArrayList<Project> projects = new ArrayList<>();
     private Project selectedProject;
     public void initialize() {

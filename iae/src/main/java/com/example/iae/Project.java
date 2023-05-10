@@ -19,6 +19,14 @@ public class Project {
         this.students = new ArrayList<>();
     }
 
+    public Project(String name, String inputFilePath, String outputFilePath, ArrayList<Student> students, Config configuration) {
+        this.name = name;
+        this.inputFilePath = inputFilePath;
+        this.outputFilePath = outputFilePath;
+        this.students = students;
+        this.configuration = configuration;
+    }
+
     public String getName() {
         return name;
     }
