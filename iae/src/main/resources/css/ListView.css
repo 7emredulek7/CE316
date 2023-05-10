@@ -1,0 +1,13 @@
+.list-view .list-cell {
+    -fx-alignment: center;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+.list-view .list-cell:filled {
+    -fx-alignment: center;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-padding: 3 3 5 3;
+    -fx-border-color: gray;
+    -fx-border-width: 0 0 0.4 0;
+}

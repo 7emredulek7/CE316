@@ -54,6 +54,9 @@ public class MainController {
         Project p2 = new Project("2", "c","c", c2);
         Project p3 = new Project("3", "d","d", c3);
         Project p4 = new Project("4", "e","e", c4);
+
+
+
         configurationsList.add(c1);
         configurationsList.add(c2);
         configurationsList.add(c3);
@@ -63,8 +66,13 @@ public class MainController {
         DBConnection.getInstance().addProject(p2);
         DBConnection.getInstance().addProject(p3);
         DBConnection.getInstance().addProject(p4);
-        */
 
+        projects = DBConnection.getInstance().getAllProjects();
+        projects.get(0).getStudents().add(new Student("20200",true));
+        projects.get(0).getStudents().add(new Student("20300",true));
+        projects.get(0).getStudents().add(new Student("20400",true));
+        projects.get(0).getStudents().add(new Student("20500",true));
+        */
         projects = DBConnection.getInstance().getAllProjects();
         addProjectsToList();
     }
@@ -113,6 +121,7 @@ public class MainController {
     private void displayProject(Project selectedProject) {
         projectScene.setVisible(!projectScene.isVisible()); // I will delete this later
         if(selectedProject != null){
+            projectResults.getItems().clear();
             projectName.setText(selectedProject.getName());
             compilerName.setText(selectedProject.getConfiguration().getSource());
             libraryNames.setText(selectedProject.getConfiguration().getLibraries());
@@ -186,14 +195,11 @@ public class MainController {
             deleteImageView.setFitHeight(20);
             deleteButton.setStyle("-fx-background-color: transparent; -fx-padding: 0;");
             Label label = new Label(p.getName());
+            label.setStyle("-fx-background-color: transparent; -fx-text-fill: black;");
             trash.getChildren().add(deleteButton);
             hbox.getChildren().addAll(label, trash);
-            hbox.setOnMouseClicked(event -> {
-                displayProject(p);
-            });
-            deleteButton.setOnAction(event -> {
-                deleteProject(p,hbox);
-            });
+            hbox.setOnMouseClicked(event -> displayProject(p));
+            deleteButton.setOnAction(event -> deleteProject(p,hbox));
             projectList.getItems().add(hbox);
         }
     }
