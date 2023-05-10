@@ -50,7 +50,7 @@ public class Driver {
             case "C++":
                 command = "cmd.exe /c g++ -w -o " + name + ".exe ";
                 for (String fileName : fileNames) {
-                    if (fileName.endsWith(".cpp") || fileName.endsWith(".h")) {
+                    if (fileName != null && (fileName.endsWith(".cpp") || fileName.endsWith(".h"))) {
                         command += fileName + " ";
                     }
                 }
