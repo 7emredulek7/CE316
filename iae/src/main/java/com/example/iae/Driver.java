@@ -12,12 +12,13 @@ public class Driver {
     Project project;
     String path;
     String name = "main";
-    String language = "Python";
-    ArrayList<String> libraries = new ArrayList<String>();
+    String language;
+    ArrayList<String> output = new ArrayList<String>();
 
     public Driver(Project project, String path) {
         this.project = project;
         this.path = path;
+        this.language = project.getConfiguration().getSource();
 
     }
 
@@ -57,17 +58,19 @@ public class Driver {
                 command += "&& " + name;
                 break;
             case "Java":
-                command = "cmd.exe /c javac " + name + ".java & java " + name;
+                command = "cmd.exe /c javac *.java ";
+                command += "&& java " + name;
 
                 break;
             case "Dart":
-                command = "dart compile exe ";
+                command = "dart compile exe bin" + name + ".dart -o  " + name;
                 for (String fileName : fileNames) {
-                    if (fileName.endsWith(".dart")) {
-                        command += fileName + " ";
+                    if (fileName != null && (fileName.endsWith(".c") || fileName.endsWith(".h"))) {
+                        command += name;
                     }
+
                 }
-                command += name + ".exe\"";
+                command += "&& " + name;
                 break;
 
             case "Python":
@@ -97,11 +100,11 @@ public class Driver {
 
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
+                output.add(line);
             }
+            process.destroy();
 
-            process.waitFor();
-
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             ((Throwable) e).printStackTrace();
         }
 
