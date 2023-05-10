@@ -12,7 +12,7 @@ public class Driver {
     Project project;
     String path;
     String name = "main";
-    String language = "C++";
+    String language = "Python";
     ArrayList<String> libraries = new ArrayList<String>();
 
     public Driver(Project project, String path) {
@@ -68,6 +68,11 @@ public class Driver {
                     }
                 }
                 command += name + ".exe\"";
+                break;
+
+            case "Python":
+                command = "cmd.exe /c py -m py_compile " + name + ".py && " + "py " + name + ".py";
+
                 break;
             default:
                 break;
