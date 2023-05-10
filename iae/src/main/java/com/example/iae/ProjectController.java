@@ -101,7 +101,7 @@ public class ProjectController extends MainController {
         Project project = new Project(name.getText(), inputFile.getPath(), outputFile.getPath(),
                 configurations.getValue());
         String fileName = sourceCodes.getName().replaceFirst("[.][^.]+$", "");
-        Driver driver = new Driver(project, sourceCodes.getParentFile().getPath(), fileName);
+        Driver driver = new Driver(project, sourceCodes.getParentFile().getPath());
         driver.evaluateStudent();
     }
 }
