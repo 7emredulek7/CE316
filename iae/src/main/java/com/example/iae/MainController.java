@@ -66,32 +66,7 @@ public class MainController {
         */
 
         projects = DBConnection.getInstance().getAllProjects();
-        for (Project p: projects) {
-            HBox hbox = new HBox();
-            HBox trash = new HBox();
-            trash.setAlignment(Pos.CENTER_RIGHT);
-            HBox.setHgrow(trash,Priority.ALWAYS);
-            HBox.setHgrow(hbox,Priority.ALWAYS);
-            hbox.setSpacing(10);
-            hbox.setAlignment(Pos.CENTER_LEFT);
-            HBox.setMargin(hbox, new Insets(0, 0, 10, 0));
-            Button deleteButton = new Button();
-            ImageView deleteImageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/trash.png"))));
-            deleteButton.setGraphic(deleteImageView);
-            deleteImageView.setFitWidth(20);
-            deleteImageView.setFitHeight(20);
-            deleteButton.setStyle("-fx-background-color: transparent; -fx-padding: 0;");
-            Label label = new Label(p.getName());
-            trash.getChildren().add(deleteButton);
-            hbox.getChildren().addAll(label, trash);
-            hbox.setOnMouseClicked(event -> {
-                displayProject(p);
-            });
-            deleteButton.setOnAction(event -> {
-                deleteProject(p,hbox);
-            });
-            projectList.getItems().add(hbox);
-        }
+        addProjectsToList();
     }
 
     @FXML
@@ -103,7 +78,10 @@ public class MainController {
         stage.setTitle("New Project");
         stage.setScene(scene);
         stage.setResizable(false);
-
+        stage.setOnCloseRequest(windowEvent -> {
+            projectList.getItems().clear();
+            addProjectsToList();
+        });
         stage.showAndWait();
     }
 
@@ -190,5 +168,33 @@ public class MainController {
         alert.getButtonTypes().setAll(yesButton, noButton);
         alert.showAndWait().ifPresent(choice -> b.set(choice != noButton));
         return b.get();
+    }
+    private void addProjectsToList(){
+        for (Project p: projects) {
+            HBox hbox = new HBox();
+            HBox trash = new HBox();
+            trash.setAlignment(Pos.CENTER_RIGHT);
+            HBox.setHgrow(trash,Priority.ALWAYS);
+            HBox.setHgrow(hbox,Priority.ALWAYS);
+            hbox.setSpacing(10);
+            hbox.setAlignment(Pos.CENTER_LEFT);
+            HBox.setMargin(hbox, new Insets(0, 0, 10, 0));
+            Button deleteButton = new Button();
+            ImageView deleteImageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/trash.png"))));
+            deleteButton.setGraphic(deleteImageView);
+            deleteImageView.setFitWidth(20);
+            deleteImageView.setFitHeight(20);
+            deleteButton.setStyle("-fx-background-color: transparent; -fx-padding: 0;");
+            Label label = new Label(p.getName());
+            trash.getChildren().add(deleteButton);
+            hbox.getChildren().addAll(label, trash);
+            hbox.setOnMouseClicked(event -> {
+                displayProject(p);
+            });
+            deleteButton.setOnAction(event -> {
+                deleteProject(p,hbox);
+            });
+            projectList.getItems().add(hbox);
+        }
     }
 }
