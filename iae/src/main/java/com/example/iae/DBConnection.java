@@ -1,4 +1,5 @@
 package com.example.iae;
+
 import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class DBConnection {
 
     private PreparedStatement insertProject, insertStudent;
     private PreparedStatement getProject, getStudents, getAllProjectNames;
+    private PreparedStatement removeProject, removeProjectStudents;
 
     private DBConnection() {
         this.fileName = "info.db";
@@ -36,13 +38,18 @@ public class DBConnection {
             }
 
             /* Insertion into database */
-            insertProject = conn.prepareStatement("INSERT INTO PROJECT (NAME, INPUT_FILE, OUTPUT_FILE, CONFIG_FILE) VALUES (?, ?, ?, ?)");
+            insertProject = conn.prepareStatement(
+                    "INSERT INTO PROJECT (NAME, INPUT_FILE, OUTPUT_FILE, CONFIG_FILE) VALUES (?, ?, ?, ?)");
             insertStudent = conn.prepareStatement("INSERT INTO STUDENT (PROJECT_NAME, ID, IS_PASSED) VALUES (?, ?, ?)");
 
             /* Selection from database */
             getProject = conn.prepareStatement("SELECT * FROM PROJECT WHERE NAME = ?");
             getStudents = conn.prepareStatement("SELECT * FROM STUDENT WHERE PROJECT_NAME = ?");
             getAllProjectNames = conn.prepareStatement("SELECT NAME FROM PROJECT");
+
+            /* Deletion from database */
+            removeProject = conn.prepareStatement("DELETE FROM PROJECT WHERE NAME = ?");
+            removeProjectStudents = conn.prepareStatement("DELETE FROM STUDENT WHERE PROJECT_NAME = ?");
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -67,8 +74,7 @@ public class DBConnection {
             insertProject.setString(4, project.getConfiguration().getName());
             insertProject.execute();
 
-
-            for(Student student : project.getStudents()) {
+            for (Student student : project.getStudents()) {
                 int isPassed = student.isPassed() ? 1 : 0;
 
                 try {
@@ -80,14 +86,13 @@ public class DBConnection {
                 }
             }
 
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Project getProject(String projectName) { //Given the projectName, returns the project objects with students result and configuration info.
+    public Project getProject(String projectName) { // Given the projectName, returns the project objects with students
+                                                    // result and configuration info.
         Project p;
         try {
             getProject.setString(1, projectName);
@@ -95,14 +100,14 @@ public class DBConnection {
             ResultSet rs = getProject.executeQuery();
             rs.next();
 
-            String name =  rs.getString(1);
+            String name = rs.getString(1);
             String inputFile = rs.getString(2);
             String outputFile = rs.getString(3);
             String configFileName = rs.getString(4);
             Config configFile = null;
 
-            for(Config c : MainController.configurationsList) {
-                if(c.getName().equals(configFileName))
+            for (Config c : MainController.configurationsList) {
+                if (c.getName().equals(configFileName))
                     configFile = c;
             }
 
@@ -111,7 +116,7 @@ public class DBConnection {
             getStudents.execute();
             ResultSet studentRs = getStudents.executeQuery();
 
-            while(studentRs.next()) {
+            while (studentRs.next()) {
                 String studentID = rs.getString(2);
                 boolean isPassed = rs.getInt(3) == 1;
                 students.add(new Student(studentID, isPassed));
@@ -131,7 +136,7 @@ public class DBConnection {
             getAllProjectNames.execute();
             ResultSet rs = getAllProjectNames.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 String projectName = rs.getString(1);
                 projects.add(getProject(projectName));
             }
@@ -142,5 +147,15 @@ public class DBConnection {
         return projects;
     }
 
-}
+    public void removeProject(String projectName) {
+        try {
+            removeProject.setString(1, projectName);
+            removeProjectStudents.setString(1, projectName);
+            removeProject.execute();
+            removeProjectStudents.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+}

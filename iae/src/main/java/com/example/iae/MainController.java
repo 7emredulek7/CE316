@@ -41,38 +41,37 @@ public class MainController {
     public static ArrayList<Config> configurationsList = new ArrayList<>();
     protected static ArrayList<Project> projects = new ArrayList<>();
     private Project selectedProject;
+
     public void initialize() {
         configurationsList = readConfigurationsFromFile();
-
-        /* test data
-        Config c1 = new Config("a","x","x","x");
-        Config c2 = new Config("b","y","y","y");
-        Config c3 = new Config("c","z","z","z");
-        Config c4 = new Config("d","t","t","t");
-
-        Project p1 = new Project("1", "ab","ab", c1);
-        Project p2 = new Project("2", "c","c", c2);
-        Project p3 = new Project("3", "d","d", c3);
-        Project p4 = new Project("4", "e","e", c4);
-
-
-
-        configurationsList.add(c1);
-        configurationsList.add(c2);
-        configurationsList.add(c3);
-        configurationsList.add(c4);
-
-        DBConnection.getInstance().addProject(p1);
-        DBConnection.getInstance().addProject(p2);
-        DBConnection.getInstance().addProject(p3);
-        DBConnection.getInstance().addProject(p4);
-
-        projects = DBConnection.getInstance().getAllProjects();
-        projects.get(0).addStudent(new Student("20200",true));
-        projects.get(0).addStudent(new Student("20300",false));
-        projects.get(0).addStudent(new Student("20400",true));
-        projects.get(0).addStudent(new Student("20500",false));
-        */
+        /*
+         * 
+         * Config c1 = new Config("a", "x", "x", "x");
+         * Config c2 = new Config("b", "y", "y", "y");
+         * Config c3 = new Config("c", "z", "z", "z");
+         * Config c4 = new Config("d", "t", "t", "t");
+         * 
+         * Project p1 = new Project("1", "ab", "ab", c1);
+         * Project p2 = new Project("2", "c", "c", c2);
+         * Project p3 = new Project("3", "d", "d", c3);
+         * Project p4 = new Project("4", "e", "e", c4);
+         * 
+         * configurationsList.add(c1);
+         * configurationsList.add(c2);
+         * configurationsList.add(c3);
+         * configurationsList.add(c4);
+         * 
+         * DBConnection.getInstance().addProject(p1);
+         * DBConnection.getInstance().addProject(p2);
+         * DBConnection.getInstance().addProject(p3);
+         * DBConnection.getInstance().addProject(p4);
+         * 
+         * projects = DBConnection.getInstance().getAllProjects();
+         * projects.get(0).addStudent(new Student("20200", true));
+         * projects.get(0).addStudent(new Student("20300", false));
+         * projects.get(0).addStudent(new Student("20400", true));
+         * projects.get(0).addStudent(new Student("20500", false));
+         */
         projects = DBConnection.getInstance().getAllProjects();
         addProjectsToList();
     }
@@ -105,6 +104,7 @@ public class MainController {
         stage.setResizable(false);
         stage.showAndWait();
     }
+
     @FXML
     private void editConfigurations() throws IOException {
         configurationStatus = "edit configurations";
@@ -119,20 +119,20 @@ public class MainController {
     }
 
     private void displayProject(Project selectedProject) {
-        if(selectedProject != null){
+        if (selectedProject != null) {
             projectName.setText(selectedProject.getName());
             compilerName.setText(selectedProject.getConfiguration().getSource());
             libraryNames.setText(selectedProject.getConfiguration().getLibraries());
             addStudentsToList(selectedProject);
             projectScene.setVisible(true);
-        }
-        else
+        } else
             projectScene.setVisible(false);
     }
-    private void deleteProject(Project selectedProject, HBox hBox){
-        if (alertYesNoWindow("Are you sure?","Are you sure you want delete " + selectedProject.getName())) {
+
+    private void deleteProject(Project selectedProject, HBox hBox) {
+        if (alertYesNoWindow("Are you sure?", "Are you sure you want delete " + selectedProject.getName())) {
             projects.remove(selectedProject);
-            // remove it from the database as well
+            DBConnection.getInstance().removeProject(selectedProject.getName());
             projectList.getItems().remove(hBox);
             projectScene.setVisible(false);
 
@@ -165,6 +165,7 @@ public class MainController {
         a.setContentText(contentText);
         a.showAndWait();
     }
+
     public boolean alertYesNoWindow(String title, String contentText) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
@@ -176,18 +177,20 @@ public class MainController {
         alert.showAndWait().ifPresent(choice -> b.set(choice != noButton));
         return b.get();
     }
-    private void addProjectsToList(){
-        for (Project p: projects) {
+
+    private void addProjectsToList() {
+        for (Project p : projects) {
             HBox hbox = new HBox();
             HBox trash = new HBox();
             trash.setAlignment(Pos.CENTER_RIGHT);
-            HBox.setHgrow(trash,Priority.ALWAYS);
-            HBox.setHgrow(hbox,Priority.ALWAYS);
+            HBox.setHgrow(trash, Priority.ALWAYS);
+            HBox.setHgrow(hbox, Priority.ALWAYS);
             hbox.setSpacing(10);
             hbox.setAlignment(Pos.CENTER_LEFT);
             HBox.setMargin(hbox, new Insets(0, 0, 10, 0));
             Button deleteButton = new Button();
-            ImageView deleteImageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/trash.png"))));
+            ImageView deleteImageView = new ImageView(
+                    new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/trash.png"))));
             deleteButton.setGraphic(deleteImageView);
             deleteImageView.setFitWidth(20);
             deleteImageView.setFitHeight(20);
@@ -197,26 +200,29 @@ public class MainController {
             trash.getChildren().add(deleteButton);
             hbox.getChildren().addAll(label, trash);
             hbox.setOnMouseClicked(event -> displayProject(p));
-            deleteButton.setOnAction(event -> deleteProject(p,hbox));
+            deleteButton.setOnAction(event -> deleteProject(p, hbox));
             projectList.getItems().add(hbox);
         }
     }
-    private void addStudentsToList(Project selectedProject){
+
+    private void addStudentsToList(Project selectedProject) {
         projectResults.getItems().clear();
-        for (Student s : selectedProject.getStudents()){
+        for (Student s : selectedProject.getStudents()) {
             HBox hbox = new HBox();
             HBox passed = new HBox();
             passed.setAlignment(Pos.CENTER_RIGHT);
-            HBox.setHgrow(passed,Priority.ALWAYS);
-            HBox.setHgrow(hbox,Priority.ALWAYS);
+            HBox.setHgrow(passed, Priority.ALWAYS);
+            HBox.setHgrow(hbox, Priority.ALWAYS);
             hbox.setSpacing(10);
             hbox.setAlignment(Pos.CENTER_LEFT);
             HBox.setMargin(hbox, new Insets(0, 0, 10, 0));
             ImageView mark;
             if (s.isPassed())
-                mark = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/checkmark.png"))));
+                mark = new ImageView(
+                        new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/checkmark.png"))));
             else
-                mark = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/redmark.png"))));
+                mark = new ImageView(
+                        new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/redmark.png"))));
             mark.setFitWidth(20);
             mark.setFitHeight(20);
             mark.setStyle("-fx-background-color: transparent; -fx-padding: 0;");
