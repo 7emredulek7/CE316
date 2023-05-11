@@ -47,6 +47,10 @@ public class Project {
         return configuration;
     }
 
+    public void addStudent(Student s){
+        students.add(s);
+    }
+
     @Override
     public String toString() {
         return name;

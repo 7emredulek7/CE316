@@ -68,10 +68,10 @@ public class MainController {
         DBConnection.getInstance().addProject(p4);
 
         projects = DBConnection.getInstance().getAllProjects();
-        projects.get(0).getStudents().add(new Student("20200",true));
-        projects.get(0).getStudents().add(new Student("20300",false));
-        projects.get(0).getStudents().add(new Student("20400",true));
-        projects.get(0).getStudents().add(new Student("20500",true));
+        projects.get(0).addStudent(new Student("20200",true));
+        projects.get(0).addStudent(new Student("20300",false));
+        projects.get(0).addStudent(new Student("20400",true));
+        projects.get(0).addStudent(new Student("20500",false));
         */
         projects = DBConnection.getInstance().getAllProjects();
         addProjectsToList();
