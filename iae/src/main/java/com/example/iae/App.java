@@ -1,6 +1,7 @@
 package com.example.iae;
 
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ public class App extends Application {
         stage.setMaxWidth(920);
         stage.setMaxHeight(690);
         stage.setFullScreen(false);
+        stage.setOnCloseRequest(windowEvent->System.exit(0));
         stage.show();
     }
 
