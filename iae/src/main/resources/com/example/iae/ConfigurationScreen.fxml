@@ -33,7 +33,7 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextField fx:id="name" prefHeight="26.0" prefWidth="0.0" GridPane.columnIndex="1">
+                  <TextField fx:id="name" prefHeight="26.0" prefWidth="0.0" styleClass="style" stylesheets="@../../../css/Style.css" GridPane.columnIndex="1">
                      <font>
                         <Font size="15.0" />
                      </font></TextField>
@@ -41,12 +41,12 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <ChoiceBox fx:id="source" focusTraversable="false" prefHeight="25.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ChoiceBox fx:id="source" focusTraversable="false" prefHeight="25.0" prefWidth="191.0" styleClass="style" stylesheets="@../../../css/Style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Libraries used" GridPane.rowIndex="2">
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextField fx:id="libraries" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="libraries" styleClass="style" stylesheets="@../../../css/Style.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="15.0" />
                      </font></TextField>
@@ -54,7 +54,7 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextField fx:id="path" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextField fx:id="path" styleClass="style" stylesheets="@../../../css/Style.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font size="15.0" />
                      </font></TextField>
@@ -63,7 +63,7 @@
                   <Insets right="10.0" />
                </VBox.margin>
             </GridPane>
-            <Button mnemonicParsing="false" onAction="#save" text="Save">
+            <Button mnemonicParsing="false" onAction="#save" styleClass="style" stylesheets="@../../../css/Style.css" text="Save">
                <font>
                   <Font size="15.0" />
                </font></Button>
@@ -78,14 +78,14 @@
                <font>
                   <Font size="15.0" />
                </font></Label>
-            <ChoiceBox fx:id="configurations" prefWidth="150.0" />
+            <ChoiceBox fx:id="configurations" prefWidth="150.0" styleClass="style" stylesheets="@../../../css/Style.css" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#deleteConfiguration" text="Delete">
+                  <Button mnemonicParsing="false" onAction="#deleteConfiguration" styleClass="style" stylesheets="@../../../css/Style.css" text="Delete">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
-                  <Button mnemonicParsing="false" onAction="#editScreen" text="Edit">
+                  <Button mnemonicParsing="false" onAction="#editScreen" styleClass="style" stylesheets="@../../../css/Style.css" text="Edit">
                      <font>
                         <Font size="15.0" />
                      </font></Button>

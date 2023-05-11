@@ -16,15 +16,15 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <Button mnemonicParsing="false" onAction="#createConfiguration" text="Create New Configuration">
+            <Button mnemonicParsing="false" onAction="#createConfiguration" styleClass="style" stylesheets="@../../../css/Style.css" text="Create New Configuration">
                <font>
                   <Font size="15.0" />
                </font></Button>
-            <Button mnemonicParsing="false" onAction="#editConfigurations" text="Edit Configurations">
+            <Button mnemonicParsing="false" onAction="#editConfigurations" styleClass="style" stylesheets="@../../../css/Style.css" text="Edit Configurations">
                <font>
                   <Font size="15.0" />
                </font></Button>
-            <Button mnemonicParsing="false" onAction="#createProject" text="Create New Project">
+            <Button mnemonicParsing="false" onAction="#createProject" styleClass="style" stylesheets="@../../../css/Style.css" text="Create New Project">
                <font>
                   <Font size="15.0" />
                </font></Button>

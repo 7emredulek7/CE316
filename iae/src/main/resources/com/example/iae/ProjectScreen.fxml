@@ -40,11 +40,11 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextField fx:id="name" prefHeight="26.0" prefWidth="315.0" GridPane.columnIndex="1">
+                  <TextField fx:id="name" prefHeight="26.0" prefWidth="315.0" styleClass="style" stylesheets="@../../../css/Style.css" GridPane.columnIndex="1">
                      <font>
                         <Font size="15.0" />
                      </font></TextField>
-                  <Button mnemonicParsing="false" onAction="#inputFileChooser" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button mnemonicParsing="false" onAction="#inputFileChooser" styleClass="style" stylesheets="@../../../css/Style.css" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
@@ -52,7 +52,7 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <Button mnemonicParsing="false" onAction="#outputFileChooser" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button mnemonicParsing="false" onAction="#outputFileChooser" styleClass="style" stylesheets="@../../../css/Style.css" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
@@ -62,7 +62,7 @@
                      </font></Label>
                   <HBox alignment="CENTER" prefHeight="65.0" prefWidth="419.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#createConfiguration" text="Create">
+                        <Button mnemonicParsing="false" onAction="#createConfiguration" styleClass="style" stylesheets="@../../../css/Style.css" text="Create">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
@@ -70,14 +70,14 @@
                            <font>
                               <Font size="15.0" />
                            </font></Label>
-                        <ChoiceBox fx:id="configurations" prefWidth="150.0" />
+                        <ChoiceBox fx:id="configurations" prefWidth="150.0" styleClass="style" stylesheets="@../../../css/Style.css" />
                      </children>
                   </HBox>
                   <Label text="Source Codes" GridPane.rowIndex="4">
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <Button mnemonicParsing="false" onAction="#sourceCodeChooser" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Button mnemonicParsing="false" onAction="#sourceCodeChooser" styleClass="style" stylesheets="@../../../css/Style.css" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
@@ -85,7 +85,7 @@
             </GridPane>
          </children>
       </HBox>
-      <Button mnemonicParsing="false" onAction="#save" text="Save">
+      <Button mnemonicParsing="false" onAction="#save" styleClass="style" stylesheets="@../../../css/Style.css" text="Save">
          <font>
             <Font size="15.0" />
          </font></Button>
