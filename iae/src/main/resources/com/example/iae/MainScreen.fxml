@@ -8,14 +8,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" minHeight="440.0" minWidth="470.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.MainController">
+<HBox alignment="CENTER" prefHeight="673.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.MainController">
    <children>
       <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" spacing="30.0" HBox.hgrow="ALWAYS">
          <children>
-            <Label text="Integrated Assignment Environment" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="67.0" prefWidth="250.0">
+               <children>
+                  <Label ellipsisString="" text="Integrated Assignment Environment" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <Button mnemonicParsing="false" onAction="#createConfiguration" styleClass="style" stylesheets="@../../../css/Style.css" text="Create New Configuration">
                <font>
                   <Font size="15.0" />
@@ -50,7 +55,7 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <ListView fx:id="projectResults" focusTraversable="false" maxWidth="-Infinity" prefHeight="331.0" prefWidth="204.0" stylesheets="@../../../css/ListView.css" />
+            <ListView fx:id="projectResults" focusTraversable="false" maxWidth="-Infinity" prefHeight="331.0" prefWidth="245.0" stylesheets="@../../../css/ListView.css" />
          </children></VBox>
    </children>
    <padding>

@@ -15,8 +15,8 @@ public class App extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("IAE");
         stage.setScene(scene);
-        stage.setMinWidth(470);
-        stage.setMinHeight(450);
+        stage.setMinWidth(700);
+        stage.setMinHeight(600);
         stage.setMaxWidth(1400);
         stage.setMaxHeight(950);
         stage.setFullScreen(false);
