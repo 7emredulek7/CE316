@@ -34,7 +34,7 @@ public class MainController {
     @FXML
     private Label libraryNames;
     @FXML
-    private ListView<Student> projectResults;
+    private ListView<HBox> projectResults;
 
     protected static String configurationStatus = "";
 
@@ -69,7 +69,7 @@ public class MainController {
 
         projects = DBConnection.getInstance().getAllProjects();
         projects.get(0).getStudents().add(new Student("20200",true));
-        projects.get(0).getStudents().add(new Student("20300",true));
+        projects.get(0).getStudents().add(new Student("20300",false));
         projects.get(0).getStudents().add(new Student("20400",true));
         projects.get(0).getStudents().add(new Student("20500",true));
         */
@@ -119,17 +119,15 @@ public class MainController {
     }
 
     private void displayProject(Project selectedProject) {
-        projectScene.setVisible(!projectScene.isVisible()); // I will delete this later
         if(selectedProject != null){
-            projectResults.getItems().clear();
             projectName.setText(selectedProject.getName());
             compilerName.setText(selectedProject.getConfiguration().getSource());
             libraryNames.setText(selectedProject.getConfiguration().getLibraries());
-            projectResults.getItems().addAll(selectedProject.getStudents());
+            addStudentsToList(selectedProject);
             projectScene.setVisible(true);
         }
-        //else
-            //projectScene.setVisible(false);
+        else
+            projectScene.setVisible(false);
     }
     private void deleteProject(Project selectedProject, HBox hBox){
         if (alertYesNoWindow("Are you sure?","Are you sure you want delete " + selectedProject.getName())) {
@@ -202,5 +200,32 @@ public class MainController {
             deleteButton.setOnAction(event -> deleteProject(p,hbox));
             projectList.getItems().add(hbox);
         }
+    }
+    private void addStudentsToList(Project selectedProject){
+        projectResults.getItems().clear();
+        for (Student s : selectedProject.getStudents()){
+            HBox hbox = new HBox();
+            HBox passed = new HBox();
+            passed.setAlignment(Pos.CENTER_RIGHT);
+            HBox.setHgrow(passed,Priority.ALWAYS);
+            HBox.setHgrow(hbox,Priority.ALWAYS);
+            hbox.setSpacing(10);
+            hbox.setAlignment(Pos.CENTER_LEFT);
+            HBox.setMargin(hbox, new Insets(0, 0, 10, 0));
+            ImageView mark;
+            if (s.isPassed())
+                mark = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/checkmark.png"))));
+            else
+                mark = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/redmark.png"))));
+            mark.setFitWidth(20);
+            mark.setFitHeight(20);
+            mark.setStyle("-fx-background-color: transparent; -fx-padding: 0;");
+            Label label = new Label(s.getId());
+            label.setStyle("-fx-background-color: transparent; -fx-text-fill: black;");
+            passed.getChildren().add(mark);
+            hbox.getChildren().addAll(label, passed);
+            projectResults.getItems().add(hbox);
+        }
+
     }
 }

@@ -11,8 +11,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.ConfigurationController">
+<StackPane fx:id="stackPane" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.ConfigurationController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="400.0" spacing="30.0">
          <children>
@@ -28,20 +29,44 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Configuration's name" />
-                  <TextField fx:id="name" prefHeight="26.0" prefWidth="0.0" GridPane.columnIndex="1" />
-                  <Label text="Language:" GridPane.rowIndex="1" />
+                  <Label text="Configuration's name">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <TextField fx:id="name" prefHeight="26.0" prefWidth="0.0" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="15.0" />
+                     </font></TextField>
+                  <Label text="Language:" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
                   <ChoiceBox fx:id="source" focusTraversable="false" prefHeight="25.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Libraries used" GridPane.rowIndex="2" />
-                  <TextField fx:id="libraries" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label text="Compiler path" GridPane.rowIndex="3" />
-                  <TextField fx:id="path" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Libraries used" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <TextField fx:id="libraries" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="15.0" />
+                     </font></TextField>
+                  <Label text="Compiler path" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <TextField fx:id="path" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="15.0" />
+                     </font></TextField>
                </children>
                <VBox.margin>
                   <Insets right="10.0" />
                </VBox.margin>
             </GridPane>
-            <Button mnemonicParsing="false" onAction="#save" text="Save" />
+            <Button mnemonicParsing="false" onAction="#save" text="Save">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
          </children>
          <padding>
             <Insets bottom="20.0" />
@@ -49,12 +74,21 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="250.0" prefWidth="400.0" spacing="30.0" visible="false">
          <children>
-            <Label text="Select configuration from above:" />
+            <Label text="Select configuration from above:">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
             <ChoiceBox fx:id="configurations" prefWidth="150.0" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#deleteConfiguration" text="Delete" />
-                  <Button mnemonicParsing="false" onAction="#editScreen" text="Edit" />
+                  <Button mnemonicParsing="false" onAction="#deleteConfiguration" text="Delete">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#editScreen" text="Edit">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
                </children>
             </HBox>
          </children>

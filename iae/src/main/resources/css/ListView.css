@@ -2,12 +2,13 @@
     -fx-alignment: center;
     -fx-background-color: white;
     -fx-text-fill: black;
+    -fx-font-size: 15;
 }
 .list-view .list-cell:filled {
     -fx-alignment: center;
     -fx-background-color: white;
     -fx-text-fill: black;
-    -fx-padding: 3 3 5 3;
+    -fx-padding: 3 10 5 10;
     -fx-border-color: gray;
     -fx-border-width: 0 0 0.4 0;
 }

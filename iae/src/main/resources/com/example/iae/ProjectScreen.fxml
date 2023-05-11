@@ -10,8 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="30.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.ProjectController">
+<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="30.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.ProjectController">
    <children>
       <HBox VBox.vgrow="ALWAYS">
          <VBox.margin>
@@ -31,27 +32,63 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Project's name" />
-                  <Label text="Input file" GridPane.rowIndex="1" />
-                  <TextField fx:id="name" prefHeight="26.0" prefWidth="315.0" GridPane.columnIndex="1" />
-                  <Button mnemonicParsing="false" onAction="#inputFileChooser" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Output file" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" onAction="#outputFileChooser" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label text="Configuration" GridPane.rowIndex="3" />
+                  <Label text="Project's name">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Label text="Input file" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <TextField fx:id="name" prefHeight="26.0" prefWidth="315.0" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="15.0" />
+                     </font></TextField>
+                  <Button mnemonicParsing="false" onAction="#inputFileChooser" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
+                  <Label text="Output file" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Button mnemonicParsing="false" onAction="#outputFileChooser" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
+                  <Label text="Configuration" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
                   <HBox alignment="CENTER" prefHeight="65.0" prefWidth="419.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#createConfiguration" text="Create" />
-                        <Label text="or" />
+                        <Button mnemonicParsing="false" onAction="#createConfiguration" text="Create">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+                        <Label text="or">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
                         <ChoiceBox fx:id="configurations" prefWidth="150.0" />
                      </children>
                   </HBox>
-                  <Label text="Source Codes" GridPane.rowIndex="4" />
-                  <Button mnemonicParsing="false" onAction="#sourceCodeChooser" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Source Codes" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Button mnemonicParsing="false" onAction="#sourceCodeChooser" text="Choose from desktop" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
                </children>
             </GridPane>
          </children>
       </HBox>
-      <Button mnemonicParsing="false" onAction="#save" text="Save" />
+      <Button mnemonicParsing="false" onAction="#save" text="Save">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
    </children>
    <padding>
       <Insets bottom="20.0" />
