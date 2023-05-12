@@ -61,16 +61,17 @@ public class MainController {
         configurationsList.add(c3);
         configurationsList.add(c4);
 
+        p1.addStudent(new Student("20200", true));
+        p1.addStudent(new Student("20300", false));
+        p1.addStudent(new Student("20400", true));
+        p1.addStudent(new Student("20500", false));
+
         DBConnection.getInstance().addProject(p1);
         DBConnection.getInstance().addProject(p2);
         DBConnection.getInstance().addProject(p3);
         DBConnection.getInstance().addProject(p4);
 
         projects = DBConnection.getInstance().getAllProjects();
-        projects.get(0).addStudent(new Student("20200", true));
-        projects.get(0).addStudent(new Student("20300", false));
-        projects.get(0).addStudent(new Student("20400", true));
-        projects.get(0).addStudent(new Student("20500", false));
         */
 
         projects = DBConnection.getInstance().getAllProjects();

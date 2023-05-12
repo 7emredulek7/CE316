@@ -73,14 +73,14 @@ public class DBConnection {
             insertProject.setString(3, project.getOutputFilePath());
             insertProject.setString(4, project.getConfiguration().getName());
             insertProject.execute();
-
             for (Student student : project.getStudents()) {
                 int isPassed = student.isPassed() ? 1 : 0;
 
                 try {
-                    insertStudent.setString(1, student.getId());
-                    insertStudent.setInt(2, isPassed);
-                    insertStudent.setString(3, project.getName());
+                    insertStudent.setString(1, project.getName());
+                    insertStudent.setString(2, student.getId());
+                    insertStudent.setInt(3, isPassed);
+                    insertStudent.execute();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -115,10 +115,9 @@ public class DBConnection {
             getStudents.setString(1, projectName);
             getStudents.execute();
             ResultSet studentRs = getStudents.executeQuery();
-
             while (studentRs.next()) {
-                String studentID = rs.getString(2);
-                boolean isPassed = rs.getInt(3) == 1;
+                String studentID = studentRs.getString(2);
+                boolean isPassed = studentRs.getInt(3) == 1;
                 students.add(new Student(studentID, isPassed));
             }
 
