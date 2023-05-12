@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Driver {
 
@@ -13,16 +15,24 @@ public class Driver {
     String path;
     String name = "main";
     String language;
+    String compilerPath;
     ArrayList<String> output = new ArrayList<String>();
+    Map<String, String> env;
 
     public Driver(Project project, String path) {
         this.project = project;
         this.path = path;
         this.language = project.getConfiguration().getSource();
+        this.compilerPath = Paths.get(project.getConfiguration().getCompilerPath()).toAbsolutePath().normalize()
+                .toString();
+        System.out.println(compilerPath);
+        this.env = new HashMap<>(System.getenv());
+        env.put("PATH", compilerPath + File.pathSeparator + compilerPath + File.pathSeparator + env.get("PATH"));
 
     }
 
     private String compileProject() {
+
         File directory = new File(path);
         File[] fileList = directory.listFiles();
         String[] fileNames = new String[fileList.length];
@@ -34,11 +44,12 @@ public class Driver {
             }
         }
 
-        String command = "default";
+        String command = "cmd.exe /c ";
+
         switch (language) {
 
             case "C":
-                command = "cmd.exe /c gcc -w -o " + name + ".exe ";
+                command += "gcc -w -o " + name + ".exe ";
                 for (String fileName : fileNames) {
                     if (fileName != null && (fileName.endsWith(".c") || fileName.endsWith(".h"))) {
                         command += fileName + " ";
@@ -49,7 +60,7 @@ public class Driver {
                 break;
 
             case "C++":
-                command = "cmd.exe /c g++ -w -o " + name + ".exe ";
+                command += "g++ -w -o " + name + ".exe ";
                 for (String fileName : fileNames) {
                     if (fileName != null && (fileName.endsWith(".cpp") || fileName.endsWith(".h"))) {
                         command += fileName + " ";
@@ -58,15 +69,15 @@ public class Driver {
                 command += "&& " + name;
                 break;
             case "Java":
-                command = "cmd.exe /c javac *.java ";
+                command += "javac *.java ";
                 command += "&& java " + name;
 
                 break;
             case "Dart":
-                command = "dart " + name + ".dart";
+                command += "dart " + name + ".dart";
                 break;
             case "Python":
-                command = "cmd.exe /c py -m py_compile " + name + ".py && " + "py " + name + ".py";
+                command += "py -m py_compile " + name + ".py && " + "py " + name + ".py";
 
                 break;
             default:
@@ -80,6 +91,7 @@ public class Driver {
         try {
             String[] commandArgs = compileProject().split("\\s+");
             ProcessBuilder builder = new ProcessBuilder(commandArgs);
+            builder.environment().putAll(env);
             builder.inheritIO();
             builder.directory(new File(path));
             builder.redirectErrorStream(true);
