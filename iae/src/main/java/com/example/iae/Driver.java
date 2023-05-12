@@ -63,16 +63,8 @@ public class Driver {
 
                 break;
             case "Dart":
-                command = "dart compile exe bin" + name + ".dart -o  " + name;
-                for (String fileName : fileNames) {
-                    if (fileName != null && (fileName.endsWith(".c") || fileName.endsWith(".h"))) {
-                        command += name;
-                    }
-
-                }
-                command += "&& " + name;
+                command = "dart " + name + ".dart";
                 break;
-
             case "Python":
                 command = "cmd.exe /c py -m py_compile " + name + ".py && " + "py " + name + ".py";
 
