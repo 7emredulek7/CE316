@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ public class Driver {
         this.language = project.getConfiguration().getSource();
         this.compilerPath = Paths.get(project.getConfiguration().getCompilerPath()).toAbsolutePath().normalize()
                 .toString();
-        System.out.println(compilerPath);
         this.env = new HashMap<>(System.getenv());
         env.put("PATH", compilerPath + File.pathSeparator + compilerPath + File.pathSeparator + env.get("PATH"));
 
@@ -89,7 +89,6 @@ public class Driver {
         File folder = new File(path);
         for (File studentFolder : folder.listFiles()) {
 
-            System.out.println(studentFolder.getAbsolutePath());
             boolean isPassed = evaluateStudent(studentFolder);
             project.addStudent(new Student(studentFolder.getName(), isPassed));
 
@@ -104,37 +103,36 @@ public class Driver {
             String[] commandArgs = compileProject(studentFolder).split("\\s+");
             ProcessBuilder builder = new ProcessBuilder(commandArgs);
             builder.environment().putAll(env);
-            builder.inheritIO();
             builder.directory(studentFolder);
             builder.redirectErrorStream(true);
             Process process = builder.start();
 
-            String line;
-
             builder.redirectInput(new File(project.getInputFilePath()));
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-            Process executeProcess = builder.start();
-
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+            InputStream inputStream = process.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
                 output.add(line);
             }
-            reader.close();
-            process.destroy();
-            return compareOutput(output);
 
-        } catch (IOException e) {
-            ((Throwable) e).printStackTrace();
+            process.waitFor();
+            process.destroy();
+
+            return compareOutput(output);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
         return false;
-
     }
 
     private boolean compareOutput(ArrayList<String> outputLines) {
 
         int i = 0;
-        try (BufferedReader br = new BufferedReader(new FileReader(project.getOutputFilePath()))) {
+        try (
+
+                BufferedReader br = new BufferedReader(new FileReader(project.getOutputFilePath()))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (!line.equals(outputLines.get(i)))
