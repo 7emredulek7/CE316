@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Driver {
 
@@ -32,9 +31,7 @@ public class Driver {
 
     }
 
-    private String compileProject() {
-
-        File directory = new File(path);
+    private String compileProject(File directory) {
         File[] fileList = directory.listFiles();
         String[] fileNames = new String[fileList.length];
 
@@ -91,32 +88,39 @@ public class Driver {
     public void evaluateAllStudents() {
         File folder = new File(path);
         for (File studentFolder : folder.listFiles()) {
+
+            System.out.println(studentFolder.getAbsolutePath());
             boolean isPassed = evaluateStudent(studentFolder);
             project.addStudent(new Student(studentFolder.getName(), isPassed));
+
         }
 
         DBConnection.getInstance().addProject(project);
     }
 
     private boolean evaluateStudent(File studentFolder) {
+        ArrayList<String> output = new ArrayList<String>();
         try {
-            String[] commandArgs = compileProject().split("\\s+");
+            String[] commandArgs = compileProject(studentFolder).split("\\s+");
             ProcessBuilder builder = new ProcessBuilder(commandArgs);
             builder.environment().putAll(env);
             builder.inheritIO();
             builder.directory(studentFolder);
             builder.redirectErrorStream(true);
             Process process = builder.start();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
             String line;
 
             builder.redirectInput(new File(project.getInputFilePath()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
             Process executeProcess = builder.start();
-            ArrayList<String> output = new ArrayList<String>();
+
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
                 output.add(line);
             }
+            reader.close();
             process.destroy();
             return compareOutput(output);
 
