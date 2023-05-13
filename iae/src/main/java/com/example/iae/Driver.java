@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,7 +109,11 @@ public class Driver {
             builder.redirectErrorStream(true);
             Process process = builder.start();
 
-            builder.redirectInput(new File(project.getInputFilePath()));
+            OutputStream outputStream = process.getOutputStream();
+            File inputFile = new File(project.getInputFilePath());
+            byte[] inputBytes = Files.readAllBytes(inputFile.toPath());
+            outputStream.write(inputBytes);
+            outputStream.close();
 
             InputStream inputStream = process.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
