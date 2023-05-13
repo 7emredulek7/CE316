@@ -74,7 +74,7 @@ public class ProjectController extends MainController {
         stage.setOnCloseRequest(windowEvent -> {
             configurations.getItems().clear();
             configurations.getItems().addAll(configurationsList);
-            configurations.setValue(configurationsList.get(configurationsList.size()-1));
+            configurations.setValue(configurationsList.get(configurationsList.size() - 1));
         });
         stage.showAndWait();
     }
@@ -108,12 +108,11 @@ public class ProjectController extends MainController {
             Project project = new Project(name.getText(), inputFile.getPath(), outputFile.getPath(),
                     configurations.getValue());
 
-            DBConnection.getInstance().addProject(project);
             projects.add(project);
 
             String fileName = sourceCodes.getName().replaceFirst("[.][^.]+$", "");
             Driver driver = new Driver(project, sourceCodes.getPath());
-            driver.evaluateStudent();
+            driver.evaluateAllStudents();
 
             Stage stage = (Stage) name.getScene().getWindow();
             stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));

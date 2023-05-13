@@ -2,22 +2,23 @@ package com.example.iae;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Driver {
 
-    Project project;
-    String path;
-    String name = "main";
-    String language;
-    String compilerPath;
-    ArrayList<String> output = new ArrayList<String>();
-    Map<String, String> env;
+    private Project project;
+    private String path;
+    private final String name = "main";
+    private String language;
+    private String compilerPath;
+    private Map<String, String> env;
 
     public Driver(Project project, String path) {
         this.project = project;
@@ -87,13 +88,23 @@ public class Driver {
         return command;
     }
 
-    void evaluateStudent() {
+    public void evaluateAllStudents() {
+        File folder = new File(path);
+        for (File studentFolder : folder.listFiles()) {
+            boolean isPassed = evaluateStudent(studentFolder);
+            project.addStudent(new Student(studentFolder.getName(), isPassed));
+        }
+
+        DBConnection.getInstance().addProject(project);
+    }
+
+    private boolean evaluateStudent(File studentFolder) {
         try {
             String[] commandArgs = compileProject().split("\\s+");
             ProcessBuilder builder = new ProcessBuilder(commandArgs);
             builder.environment().putAll(env);
             builder.inheritIO();
-            builder.directory(new File(path));
+            builder.directory(studentFolder);
             builder.redirectErrorStream(true);
             Process process = builder.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -101,16 +112,36 @@ public class Driver {
 
             builder.redirectInput(new File(project.getInputFilePath()));
             Process executeProcess = builder.start();
-
+            ArrayList<String> output = new ArrayList<String>();
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
                 output.add(line);
             }
             process.destroy();
+            return compareOutput(output);
 
         } catch (IOException e) {
             ((Throwable) e).printStackTrace();
         }
+        return false;
+
+    }
+
+    private boolean compareOutput(ArrayList<String> outputLines) {
+
+        int i = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(project.getOutputFilePath()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (!line.equals(outputLines.get(i)))
+                    return false;
+                i++;
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+
+        return true;
 
     }
 }
