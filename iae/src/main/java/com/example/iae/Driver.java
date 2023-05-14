@@ -21,6 +21,7 @@ public class Driver {
     private String language;
     private String compilerPath;
     private Map<String, String> env;
+    private ArrayList<String> libraries;
 
     public Driver(Project project, String path) {
         this.project = project;
@@ -30,6 +31,7 @@ public class Driver {
                 .toString();
         this.env = new HashMap<>(System.getenv());
         env.put("PATH", compilerPath + File.pathSeparator + compilerPath + File.pathSeparator + env.get("PATH"));
+        this.libraries = project.getConfiguration().getLibraries();
 
     }
 
@@ -56,6 +58,9 @@ public class Driver {
                     }
 
                 }
+                for (int i = 0; i < libraries.size(); i++) {
+                    command += libraries.get(i).toString() + " ";
+                }
                 command += "&& " + name;
                 break;
 
@@ -66,18 +71,32 @@ public class Driver {
                         command += fileName + " ";
                     }
                 }
+                for (int i = 0; i < libraries.size(); i++) {
+                    command += libraries.get(i).toString() + " ";
+                }
                 command += "&& " + name;
                 break;
             case "Java":
                 command += "javac *.java ";
+                for (int i = 0; i < libraries.size(); i++) {
+                    command += libraries.get(i).toString() + " ";
+                }
                 command += "&& java " + name;
 
                 break;
             case "Dart":
-                command += "dart " + name + ".dart";
+                command += "dart ";
+                for (int i = 0; i < libraries.size(); i++) {
+                    command += libraries.get(i).toString() + " ";
+                }
+                command += name + ".dart";
                 break;
             case "Python":
-                command += "py -m py_compile " + name + ".py && " + "py " + name + ".py";
+                command += "py -m py_compile " + name + ".py ";
+                for (int i = 0; i < libraries.size(); i++) {
+                    command += libraries.get(i).toString() + " ";
+                }
+                command += "&& " + "py " + name + ".py";
 
                 break;
             default:
@@ -120,6 +139,7 @@ public class Driver {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;
             while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
                 output.add(line);
             }
 

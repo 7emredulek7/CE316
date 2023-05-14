@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -122,7 +123,8 @@ public class MainController {
         if (selectedProject != null) {
             projectName.setText(selectedProject.getName());
             compilerName.setText(selectedProject.getConfiguration().getSource());
-            libraryNames.setText(selectedProject.getConfiguration().getLibraries());
+            libraryNames.setText(selectedProject.getConfiguration().getLibraries().stream().map(Object::toString)
+                    .collect(Collectors.joining(",")));
             addStudentsToList(selectedProject);
             projectScene.setVisible(true);
         } else

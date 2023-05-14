@@ -5,6 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
@@ -50,10 +54,12 @@ public class ConfigurationController extends MainController {
 
     @FXML
     private void save() {
+        List<String> libraryList = Arrays.asList(libraries.getText().split(","));
+        ArrayList<String> libraryArrayList = new ArrayList<>(libraryList);
         if (name.getText().isBlank())
-            alertErrorWindow("Error","You should enter a name for your configuration.");
+            alertErrorWindow("Error", "You should enter a name for your configuration.");
         else if (path.getText().isBlank())
-            alertErrorWindow("Error","You should enter a compiler/interpreter path for your configuration.");
+            alertErrorWindow("Error", "You should enter a compiler/interpreter path for your configuration.");
         else {
             configurationStatus = "";
             Config tempConfig;
@@ -65,7 +71,7 @@ public class ConfigurationController extends MainController {
                     tempConfig = config;
                     tempConfig.setName(name.getText());
                     tempConfig.setCompilerPath(path.getText());
-                    tempConfig.setLibraries(libraries.getText());
+                    tempConfig.setLibraries(libraryArrayList);
                     tempConfig.setSource(source.getValue());
                     System.out.println("Configuration edited:" + "\n + new name: " +
                             name.getText() + "\n + new path: " + path.getText() + "\n + new libraries: "
@@ -76,7 +82,7 @@ public class ConfigurationController extends MainController {
             }
 
             if (!configExists) {
-                tempConfig = new Config(name.getText(), source.getValue(), libraries.getText(), path.getText());
+                tempConfig = new Config(name.getText(), source.getValue(), libraryArrayList, path.getText());
                 configurationsList.add(tempConfig);
                 System.out.println("Configuration created:" + "\n + name: " +
                         name.getText() + "\n + path: " + path.getText() + "\n + libraries: "
@@ -100,7 +106,7 @@ public class ConfigurationController extends MainController {
         }
         Config configToRemove = configurations.getValue();
         if (configToRemove == null)
-            alertErrorWindow("Error","You must select a configuration from the choiceBox");
+            alertErrorWindow("Error", "You must select a configuration from the choiceBox");
         else {
             configurations.getItems().remove(configToRemove);
             configurationsList.remove(configToRemove);
@@ -115,12 +121,13 @@ public class ConfigurationController extends MainController {
     private void editScreen() {
         Config temp = configurations.getValue();
         if (temp == null)
-            alertErrorWindow("Error","You must select a configuration from the choiceBox");
+            alertErrorWindow("Error", "You must select a configuration from the choiceBox");
         else {
             stackPane.getChildren().get(1).setVisible(false);
             name.setText(temp.getName());
             source.setValue(temp.getSource());
-            libraries.setText(temp.getLibraries());
+            libraries.setText(temp.getLibraries().stream().map(Object::toString)
+                    .collect(Collectors.joining(",")));
             path.setText(temp.getCompilerPath());
             stackPane.getChildren().get(0).setVisible(true);
         }
