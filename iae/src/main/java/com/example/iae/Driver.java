@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.scene.control.Alert;
+
 public class Driver {
 
     private Project project;
@@ -22,6 +24,7 @@ public class Driver {
     private String compilerPath;
     private Map<String, String> env;
     private ArrayList<String> libraries;
+    private boolean compilerError = false;
 
     public Driver(Project project, String path) {
         this.project = project;
@@ -33,6 +36,10 @@ public class Driver {
         env.put("PATH", compilerPath + File.pathSeparator + compilerPath + File.pathSeparator + env.get("PATH"));
         this.libraries = project.getConfiguration().getLibraries();
 
+    }
+
+    public boolean getCompileError() {
+        return compilerError;
     }
 
     private String compileProject(File directory) {
@@ -111,11 +118,15 @@ public class Driver {
         for (File studentFolder : folder.listFiles()) {
 
             boolean isPassed = evaluateStudent(studentFolder);
+
             project.addStudent(new Student(studentFolder.getName(), isPassed));
 
         }
+        if (compilerError == false) {
+            DBConnection.getInstance().addProject(project);
 
-        DBConnection.getInstance().addProject(project);
+        }
+
     }
 
     private boolean evaluateStudent(File studentFolder) {
@@ -145,6 +156,10 @@ public class Driver {
 
             process.waitFor();
             process.destroy();
+
+            if (output.get(0).toString().contains("is not recognized as an internal or external command,")) {
+                compilerError = true;
+            }
 
             return compareOutput(output);
         } catch (IOException | InterruptedException e) {

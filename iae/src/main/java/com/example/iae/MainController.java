@@ -160,7 +160,7 @@ public class MainController {
         return configurationsList;
     }
 
-    public void alertErrorWindow(String title, String contentText) {
+    public static void alertErrorWindow(String title, String contentText) {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setResizable(false);
         a.setTitle(title);

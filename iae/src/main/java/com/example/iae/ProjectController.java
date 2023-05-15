@@ -108,11 +108,15 @@ public class ProjectController extends MainController {
             Project project = new Project(name.getText(), inputFile.getPath(), outputFile.getPath(),
                     configurations.getValue());
 
-            projects.add(project);
-
             String fileName = sourceCodes.getName().replaceFirst("[.][^.]+$", "");
             Driver driver = new Driver(project, sourceCodes.getPath());
             driver.evaluateAllStudents();
+
+            if (driver.getCompileError() == false) {
+                projects.add(project);
+            } else {
+                MainController.alertErrorWindow("Compiler Error", "Compiler path is not recognized by the program");
+            }
 
             Stage stage = (Stage) name.getScene().getWindow();
             stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
