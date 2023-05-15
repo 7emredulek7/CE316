@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class Config implements Serializable {
     private String name;
     private String source;
-    private ArrayList<String> libraries = new ArrayList<String>();
+    private String libraries;
     private String compilerPath;
 
-    public Config(String name, String source, ArrayList<String> libraries, String compilerPath) {
+    public Config(String name, String source, String libraries, String compilerPath) {
         this.name = name;
         this.source = source;
         this.libraries = libraries;
@@ -24,11 +24,11 @@ public class Config implements Serializable {
         this.source = source;
     }
 
-    public ArrayList<String> getLibraries() {
+    public String getLibraries() {
         return libraries;
     }
 
-    public void setLibraries(ArrayList<String> libraries) {
+    public void setLibraries(String libraries) {
         this.libraries = libraries;
     }
 

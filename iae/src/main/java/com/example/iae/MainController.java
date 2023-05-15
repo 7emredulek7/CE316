@@ -123,8 +123,7 @@ public class MainController {
         if (selectedProject != null) {
             projectName.setText(selectedProject.getName());
             compilerName.setText(selectedProject.getConfiguration().getSource());
-            libraryNames.setText(selectedProject.getConfiguration().getLibraries().stream().map(Object::toString)
-                    .collect(Collectors.joining(",")));
+            libraryNames.setText(selectedProject.getConfiguration().getLibraries());
             addStudentsToList(selectedProject);
             projectScene.setVisible(true);
         } else

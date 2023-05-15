@@ -23,7 +23,7 @@ public class Driver {
     private String language;
     private String compilerPath;
     private Map<String, String> env;
-    private ArrayList<String> libraries;
+    private String libraries;
     private boolean compilerError = false;
 
     public Driver(Project project, String path) {
@@ -65,9 +65,8 @@ public class Driver {
                     }
 
                 }
-                for (int i = 0; i < libraries.size(); i++) {
-                    command += libraries.get(i).toString() + " ";
-                }
+
+                command += libraries;
                 command += "&& " + name;
                 break;
 
@@ -78,31 +77,23 @@ public class Driver {
                         command += fileName + " ";
                     }
                 }
-                for (int i = 0; i < libraries.size(); i++) {
-                    command += libraries.get(i).toString() + " ";
-                }
+                command += libraries;
                 command += "&& " + name;
                 break;
             case "Java":
                 command += "javac *.java ";
-                for (int i = 0; i < libraries.size(); i++) {
-                    command += libraries.get(i).toString() + " ";
-                }
+                command += libraries;
                 command += "&& java " + name;
 
                 break;
             case "Dart":
                 command += "dart ";
-                for (int i = 0; i < libraries.size(); i++) {
-                    command += libraries.get(i).toString() + " ";
-                }
+                command += libraries;
                 command += name + ".dart";
                 break;
             case "Python":
                 command += "py -m py_compile " + name + ".py ";
-                for (int i = 0; i < libraries.size(); i++) {
-                    command += libraries.get(i).toString() + " ";
-                }
+                command += libraries;
                 command += "&& " + "py " + name + ".py";
 
                 break;

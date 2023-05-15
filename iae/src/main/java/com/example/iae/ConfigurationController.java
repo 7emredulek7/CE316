@@ -54,8 +54,6 @@ public class ConfigurationController extends MainController {
 
     @FXML
     private void save() {
-        List<String> libraryList = Arrays.asList(libraries.getText().split(","));
-        ArrayList<String> libraryArrayList = new ArrayList<>(libraryList);
         if (name.getText().isBlank())
             alertErrorWindow("Error", "You should enter a name for your configuration.");
         else if (path.getText().isBlank())
@@ -71,7 +69,7 @@ public class ConfigurationController extends MainController {
                     tempConfig = config;
                     tempConfig.setName(name.getText());
                     tempConfig.setCompilerPath(path.getText());
-                    tempConfig.setLibraries(libraryArrayList);
+                    tempConfig.setLibraries(libraries.getText());
                     tempConfig.setSource(source.getValue());
                     System.out.println("Configuration edited:" + "\n + new name: " +
                             name.getText() + "\n + new path: " + path.getText() + "\n + new libraries: "
@@ -82,7 +80,7 @@ public class ConfigurationController extends MainController {
             }
 
             if (!configExists) {
-                tempConfig = new Config(name.getText(), source.getValue(), libraryArrayList, path.getText());
+                tempConfig = new Config(name.getText(), source.getValue(), libraries.getText(), path.getText());
                 configurationsList.add(tempConfig);
                 System.out.println("Configuration created:" + "\n + name: " +
                         name.getText() + "\n + path: " + path.getText() + "\n + libraries: "
@@ -126,8 +124,7 @@ public class ConfigurationController extends MainController {
             stackPane.getChildren().get(1).setVisible(false);
             name.setText(temp.getName());
             source.setValue(temp.getSource());
-            libraries.setText(temp.getLibraries().stream().map(Object::toString)
-                    .collect(Collectors.joining(",")));
+            libraries.setText(temp.getLibraries());
             path.setText(temp.getCompilerPath());
             stackPane.getChildren().get(0).setVisible(true);
         }
