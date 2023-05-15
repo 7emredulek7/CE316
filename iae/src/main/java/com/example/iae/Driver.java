@@ -163,14 +163,19 @@ public class Driver {
 
         int i = 0;
         try (
-
                 BufferedReader br = new BufferedReader(new FileReader(project.getOutputFilePath()))) {
             String line;
             while ((line = br.readLine()) != null) {
+                if (i == outputLines.size())
+                    return false;
+
                 if (!line.equals(outputLines.get(i)))
                     return false;
                 i++;
             }
+
+            if (i != outputLines.size())
+                return false;
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
