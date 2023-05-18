@@ -36,7 +36,7 @@ public class HelpController {
 
     @FXML
     private void nextPage() {
-        if (index < 6) {
+        if (index < 3) {
             stackPane.getChildren().get(index++).setVisible(false);
             stackPane.getChildren().get(index).setVisible(true);
             buttonStyleSwap(prevButton, buttons[index]);

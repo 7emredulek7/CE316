@@ -45,34 +45,20 @@ public class MainController {
 
     public void initialize() {
         configurationsList = readConfigurationsFromFile();
-        /*
-         * Config c1 = new Config("a", "x", "x", "x");
-         * Config c2 = new Config("b", "y", "y", "y");
-         * Config c3 = new Config("c", "z", "z", "z");
-         * Config c4 = new Config("d", "t", "t", "t");
-         * 
-         * Project p1 = new Project("1", "ab", "ab", c1);
-         * Project p2 = new Project("2", "c", "c", c2);
-         * Project p3 = new Project("3", "d", "d", c3);
-         * Project p4 = new Project("4", "e", "e", c4);
-         * 
-         * configurationsList.add(c1);
-         * configurationsList.add(c2);
-         * configurationsList.add(c3);
-         * configurationsList.add(c4);
-         * 
-         * p1.addStudent(new Student("20200", true));
-         * p1.addStudent(new Student("20300", false));
-         * p1.addStudent(new Student("20400", true));
-         * p1.addStudent(new Student("20500", false));
-         * 
-         * DBConnection.getInstance().addProject(p1);
-         * DBConnection.getInstance().addProject(p2);
-         * DBConnection.getInstance().addProject(p3);
-         * DBConnection.getInstance().addProject(p4);
-         */
-        projects = DBConnection.getInstance().getAllProjects();
+    /*
+        Config c1 = new Config("C with Math Library", "C", "-lm", "/usr/bin");
 
+        Project p1 = new Project("C Iterative Fibonacci Project!", "ab", "ab", c1);
+        configurationsList.add(c1);
+
+        p1.addStudent(new Student("20200602014", true));
+        p1.addStudent(new Student("20200602020", false));
+        p1.addStudent(new Student("20200602029", true));
+        p1.addStudent(new Student("20200602031", false));
+
+        DBConnection.getInstance().addProject(p1);
+        projects = DBConnection.getInstance().getAllProjects();
+    */
         projects = DBConnection.getInstance().getAllProjects();
         addProjectsToList();
     }
@@ -108,15 +94,19 @@ public class MainController {
 
     @FXML
     private void editConfigurations() throws IOException {
-        configurationStatus = "edit configurations";
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ConfigurationScreen.fxml"));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        stage.setTitle("Edit Configurations");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.showAndWait();
+        if (configurationsList.size() != 0) {
+            configurationStatus = "edit configurations";
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ConfigurationScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            stage.setTitle("Edit Configurations");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.showAndWait();
+        }
+        else
+            alertErrorWindow("Error","There is no configuration on the program. Please create configuration first.");
     }
 
     @FXML
@@ -151,7 +141,10 @@ public class MainController {
 
         }
     }
-
+    @FXML
+    private void importConfiguration(){
+        // import configuration to configurationList and to configurations file
+    }
     protected ArrayList<Config> readConfigurationsFromFile() {
         ArrayList<Config> configurationsList = new ArrayList<>();
         try {

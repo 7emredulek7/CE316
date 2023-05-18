@@ -15,7 +15,7 @@
 
 <StackPane fx:id="stackPane" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.ConfigurationController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="400.0" spacing="30.0">
+      <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="400.0" spacing="30.0" visible="false">
          <children>
             <GridPane VBox.vgrow="ALWAYS">
               <columnConstraints>
@@ -72,9 +72,9 @@
             <Insets bottom="20.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="250.0" prefWidth="400.0" spacing="30.0" visible="false">
+      <VBox alignment="CENTER" prefHeight="250.0" prefWidth="400.0" spacing="30.0">
          <children>
-            <Label text="Select configuration from above:">
+            <Label text="Select configuration from below:">
                <font>
                   <Font size="15.0" />
                </font></Label>
@@ -89,6 +89,11 @@
                      <font>
                         <Font size="15.0" />
                      </font></Button>
+                  <Button mnemonicParsing="false" onAction="#exportConfiguration" styleClass="style" stylesheets="@../../../css/Style.css" text="Export">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
          </children>

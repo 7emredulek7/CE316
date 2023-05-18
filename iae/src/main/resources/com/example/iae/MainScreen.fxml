@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" prefHeight="673.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.MainController">
+<HBox alignment="CENTER" prefHeight="673.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.MainController">
    <children>
-      <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" spacing="30.0" HBox.hgrow="ALWAYS">
+      <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" spacing="25.0" HBox.hgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="67.0" prefWidth="250.0">
                <children>
@@ -21,6 +21,11 @@
                   </Label>
                </children>
             </HBox>
+            <Button mnemonicParsing="false" onAction="#importConfiguration" styleClass="style" stylesheets="@../../../css/Style.css" text="Import Configuration">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
             <Button mnemonicParsing="false" onAction="#createConfiguration" styleClass="style" stylesheets="@../../../css/Style.css" text="Create New Configuration">
                <font>
                   <Font size="15.0" />
@@ -41,17 +46,9 @@
          <padding>
             <Insets bottom="20.0" top="20.0" />
          </padding></VBox>
-      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="615.0" spacing="30.0" HBox.hgrow="ALWAYS">
+      <VBox alignment="CENTER_RIGHT" prefHeight="600.0" prefWidth="615.0" spacing="30.0" HBox.hgrow="ALWAYS">
          <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="507.0">
-               <children>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#helpMenu" prefHeight="46.0" prefWidth="83.0" styleClass="style" stylesheets="@../../../css/Style.css" text="Help" />
-               </children>
-               <VBox.margin>
-                  <Insets right="20.0" top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <VBox fx:id="projectScene1" alignment="CENTER" prefHeight="600.0" prefWidth="615.0" spacing="30.0" visible="false">
+            <VBox fx:id="projectScene" alignment="CENTER" prefHeight="600.0" prefWidth="615.0" spacing="30.0" visible="false">
                <children>
                   <Label fx:id="projectName" text="projectName">
                      <font>
@@ -71,7 +68,18 @@
                   <ListView fx:id="projectResults" focusTraversable="false" maxWidth="-Infinity" prefHeight="331.0" prefWidth="245.0" stylesheets="@../../../css/ListView.css" />
                </children>
             </VBox>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#helpMenu" prefHeight="33.0" prefWidth="52.0" styleClass="style" stylesheets="@../../../css/Style.css" text="Help">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
          </children>
+         <padding>
+            <Insets bottom="10.0" right="10.0" />
+         </padding>
       </VBox>
    </children>
    <padding>

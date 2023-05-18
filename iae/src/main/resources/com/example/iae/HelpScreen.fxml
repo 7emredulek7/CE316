@@ -2,39 +2,131 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.HelpController">
+<StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.HelpController">
    <children>
-      <ImageView fitHeight="236.0" fitWidth="473.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../images/configuration.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="473.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../images/edit_configuration.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="481.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../images/create_project.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="483.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../images/configuration.png" />
-         </image>
-      </ImageView>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="360.0" fitWidth="242.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/mainscreen.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label alignment="TOP_LEFT" lineSpacing="4.0" prefHeight="147.0" prefWidth="499.0" text="Welcome to our program. The Integrated Assignment Environment (IAE) is a lightweight-integrated development environment that allows lecturers to manage programming assignments. The IAE provides an interface for creating new assignments and managing student submissions. The IAE can be configured for C, C++, Dart, Java, and Python, and can run several programs within the IAE." textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" lineSpacing="4.0" prefHeight="156.0" prefWidth="499.0" text="On the left side you can see 4 buttons." textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+      <VBox spacing="30.0" visible="false">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <ImageView fitHeight="236.0" fitWidth="473.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/configuration.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" lineSpacing="4.0" prefHeight="198.0" prefWidth="376.0" text="When you click on the new configuration button, a new window opens on your screen for you to create a new configuration. You can enter the name of your configuration, the compiler path, and the libraries used if you have any. You must select the configuration language from the selection box. After you are done, you can click the save button." textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <ImageView fitHeight="236.0" fitWidth="473.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/edit_configuration.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" lineSpacing="4.0" prefHeight="193.0" prefWidth="376.0" text="When you click on the edit configuration button, a new window opens on your screen for you to edit configurations. You can select the name of your configuration, then you can select what you want from delete, edit, and export button." textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" visible="false">
+         <children>
+            <ImageView fitHeight="371.0" fitWidth="472.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/create_project.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" prefHeight="600.0" prefWidth="282.0">
+               <children>
+                  <Label alignment="TOP_LEFT" lineSpacing="4.0" prefHeight="213.0" prefWidth="248.0" text="When you click the create project button, a new window will open on your screen for you to create a project. You can enter the name of your project. Then you can select the input file, output file and source codes. You can then select a configuration from existing configurations or create a new configuration." textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" lineSpacing="4.0" prefHeight="19.0" prefWidth="248.0" text="After that you can click the save button." textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+      <VBox alignment="CENTER" spacing="30.0" visible="false">
+         <children>
+            <ImageView fitHeight="414.0" fitWidth="514.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/projectdisplay.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" lineSpacing="4.0" prefHeight="75.0" prefWidth="712.0" text="You can select the project you have created from the project list at the bottom left. When you select it, you can see the project name, compiler name, libraries used, files in the project and their results on the screen that opens on the right." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
       <VBox alignment="CENTER">
          <children>
             <HBox alignment="CENTER_RIGHT" prefHeight="516.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER_LEFT" prefHeight="473.0" prefWidth="639.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Button mnemonicParsing="false" onAction="#prevPage" prefHeight="34.0" prefWidth="26.0" style="-fx-background-color: transparent;">
                            <graphic>

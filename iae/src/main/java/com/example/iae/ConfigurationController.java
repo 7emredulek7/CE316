@@ -114,6 +114,10 @@ public class ConfigurationController extends MainController {
             saveConfigurationsToFile(configurationsList);
         }
     }
+    @FXML
+    private void exportConfiguration(){
+        // export selected configuration from choice box.
+    }
 
     @FXML
     private void editScreen() {
@@ -147,5 +151,6 @@ public class ConfigurationController extends MainController {
             e.getCause().printStackTrace();
         }
     }
+
 
 }
