@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" prefHeight="673.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.MainController">
+<HBox alignment="CENTER" prefHeight="673.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iae.MainController">
    <children>
       <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" spacing="30.0" HBox.hgrow="ALWAYS">
          <children>
@@ -41,22 +41,38 @@
          <padding>
             <Insets bottom="20.0" top="20.0" />
          </padding></VBox>
-      <VBox fx:id="projectScene" alignment="CENTER" prefHeight="600.0" prefWidth="615.0" spacing="30.0" visible="false" HBox.hgrow="ALWAYS">
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="615.0" spacing="30.0" HBox.hgrow="ALWAYS">
          <children>
-            <Label fx:id="projectName" text="projectName">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-            <Label fx:id="compilerName" text="compiler/intrepreter name">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-            <Label fx:id="libraryNames" text="library names">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-            <ListView fx:id="projectResults" focusTraversable="false" maxWidth="-Infinity" prefHeight="331.0" prefWidth="245.0" stylesheets="@../../../css/ListView.css" />
-         </children></VBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="507.0">
+               <children>
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#helpMenu" prefHeight="46.0" prefWidth="83.0" styleClass="style" stylesheets="@../../../css/Style.css" text="Help" />
+               </children>
+               <VBox.margin>
+                  <Insets right="20.0" top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox fx:id="projectScene1" alignment="CENTER" prefHeight="600.0" prefWidth="615.0" spacing="30.0" visible="false">
+               <children>
+                  <Label fx:id="projectName" text="projectName">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="compilerName" text="compiler/intrepreter name">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="libraryNames" text="library names">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="projectResults" focusTraversable="false" maxWidth="-Infinity" prefHeight="331.0" prefWidth="245.0" stylesheets="@../../../css/ListView.css" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
    </children>
    <padding>
       <Insets left="10.0" />

@@ -119,6 +119,18 @@ public class MainController {
         stage.showAndWait();
     }
 
+    @FXML
+    private void helpMenu() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HelpScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 800, 600);
+        stage.setTitle("Help");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.showAndWait();
+    }
+
     private void displayProject(Project selectedProject) {
         if (selectedProject != null) {
             projectName.setText(selectedProject.getName());
