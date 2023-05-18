@@ -48,7 +48,7 @@
          </padding></VBox>
       <VBox alignment="CENTER_RIGHT" prefHeight="600.0" prefWidth="615.0" spacing="30.0" HBox.hgrow="ALWAYS">
          <children>
-            <VBox fx:id="projectScene" alignment="CENTER" prefHeight="600.0" prefWidth="615.0" spacing="30.0" visible="false">
+            <VBox fx:id="projectScene" alignment="CENTER" prefHeight="600.0" prefWidth="615.0" spacing="30.0" visible="false" VBox.vgrow="ALWAYS">
                <children>
                   <Label fx:id="projectName" text="projectName">
                      <font>
@@ -68,7 +68,7 @@
                   <ListView fx:id="projectResults" focusTraversable="false" maxWidth="-Infinity" prefHeight="331.0" prefWidth="245.0" stylesheets="@../../../css/ListView.css" />
                </children>
             </VBox>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#helpMenu" prefHeight="33.0" prefWidth="52.0" styleClass="style" stylesheets="@../../../css/Style.css" text="Help">
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#helpMenu" prefHeight="33.0" prefWidth="68.0" styleClass="style" stylesheets="@../../../css/Style.css" text="Help">
                <font>
                   <Font size="15.0" />
                </font>
