@@ -143,7 +143,7 @@ public class MainController {
     }
     @FXML
     private void importConfiguration(){
-        // import configuration to configurationList and to configurations file
+        ConfigurationController.importConfiguration();
     }
     protected ArrayList<Config> readConfigurationsFromFile() {
         ArrayList<Config> configurationsList = new ArrayList<>();
