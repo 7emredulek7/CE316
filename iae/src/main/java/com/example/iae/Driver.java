@@ -2,6 +2,8 @@ package com.example.iae;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +14,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import javafx.scene.control.Alert;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class Driver {
 
@@ -104,9 +108,13 @@ public class Driver {
         return command;
     }
 
-    public void evaluateAllStudents() {
+    public void evaluateAllStudents() throws IOException {
         File folder = new File(path);
         for (File studentFolder : folder.listFiles()) {
+            if (studentFolder.isFile() && studentFolder.getName().endsWith(".zip")) {
+                studentFolder = ZipExtractor.extractZipFile(studentFolder.getAbsolutePath());
+
+            }
 
             boolean isPassed = evaluateStudent(studentFolder);
 
@@ -181,6 +189,59 @@ public class Driver {
         }
 
         return true;
+
+    }
+
+    public class ZipExtractor {
+        public static File extractZipFile(String zipFilePath) {
+            try {
+                File zipFile = new File(zipFilePath);
+                String outputDirectory = zipFile.getParent() + File.separator
+                        + getFileNameWithoutExtension(zipFile.getName());
+
+                byte[] buffer = new byte[1024];
+                ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(zipFile));
+                ZipEntry zipEntry = zipInputStream.getNextEntry();
+
+                while (zipEntry != null) {
+                    String entryPath = outputDirectory + File.separator + zipEntry.getName();
+                    File entryFile = new File(entryPath);
+
+                    if (zipEntry.isDirectory()) {
+                        entryFile.mkdirs();
+                    } else {
+                        entryFile.getParentFile().mkdirs();
+                        FileOutputStream fos = new FileOutputStream(entryFile);
+                        int length;
+                        while ((length = zipInputStream.read(buffer)) > 0) {
+                            fos.write(buffer, 0, length);
+                        }
+                        fos.close();
+                    }
+
+                    zipEntry = zipInputStream.getNextEntry();
+                }
+
+                zipInputStream.closeEntry();
+                zipInputStream.close();
+
+                System.out.println("Zip file extracted  to: " + outputDirectory);
+                File file = new File(outputDirectory);
+                zipFile.delete();
+                return file;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        private static String getFileNameWithoutExtension(String fileName) {
+            int index = fileName.lastIndexOf('.');
+            if (index > 0) {
+                return fileName.substring(0, index);
+            }
+            return fileName;
+        }
 
     }
 }

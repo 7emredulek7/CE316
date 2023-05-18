@@ -92,7 +92,7 @@ public class ProjectController extends MainController {
     }
 
     @FXML
-    private void save() {
+    private void save() throws IOException {
         if (name.getText().isBlank())
             alertErrorWindow("Error", "You should enter a name for your project");
         else if (inputFile == null)
