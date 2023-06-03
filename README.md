@@ -79,6 +79,11 @@ Usage
    ![resim](https://github.com/7emredulek7/CE316/assets/80330367/bf0cb718-f489-48a8-97fa-8aca0c7864c2)    
 
     Enter the file path for the solution folder, sample input to be tested, and the sample output to be returned.
+    
+    For souce file you should use a parent directory for your all student codes. As you can see in the image you should choose StudentC directory and program will iterate inside of it. 
+    
+   ![resim](https://github.com/7emredulek7/CE316/assets/80330367/679c1207-6d93-40b1-83f0-ed39a14b8678)
+
 
     You can upload student submissions with or without ZIP format and run the assignment.
    
