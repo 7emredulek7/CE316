@@ -54,20 +54,37 @@ IAE uses SQL Lite on localhost to store student information and assignment resul
 Usage
 
     Install the software using the provided installer.
-
+    
     Open IAE and navigate to create a new project.
 
     Fill up the project name and select an existing configuration or create a new one.
+    
+    ![resim](https://github.com/7emredulek7/CE316/assets/80330367/f790b4b5-e062-4964-88de-cbb5afe96bcd)
+
 
     If creating a new configuration, enter information like the configuration's name, compiler path, and libraries to be used.
+    
+    ![resim](https://github.com/7emredulek7/CE316/assets/80330367/52be1cb2-110f-479b-b910-9e913da672d9)
+
+    
+    You can find your compiler path by writing where <compilerName> to your command prompt and getting the path without "compilerName.exe" part.
+    
+    ![resim](https://github.com/7emredulek7/CE316/assets/80330367/6ce0c2da-1117-49c5-9912-513cbeb7c831)
+
 
     If using an existing configuration, select from a list of all available configurations.
+    
+    You can also delete, import or edit the configuration that you created.
+    
+    ![resim](https://github.com/7emredulek7/CE316/assets/80330367/bf0cb718-f489-48a8-97fa-8aca0c7864c2)    
 
     Enter the file path for the solution folder, sample input to be tested, and the sample output to be returned.
 
-    Upload student submissions in ZIP format and run the assignment.
-
+    You can upload student submissions with or without ZIP format and run the assignment.
+   
     View and manage assignment results.
+    
+    ![resim](https://github.com/7emredulek7/CE316/assets/80330367/b51bf4fb-dfe2-4058-909f-763a434ddd50)
 
 Contributing
 
